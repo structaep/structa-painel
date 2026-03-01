@@ -454,7 +454,7 @@ app.get('/', (c) => {
   `)
 })
 
-// ========== PÁGINA DE DASHBOARD (temporária) ==========
+// ========== PÁGINA DE DASHBOARD ==========
 
 app.get('/dashboard', (c) => {
   return c.html(`
@@ -463,45 +463,437 @@ app.get('/dashboard', (c) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Structa Admin - Dashboard</title>
+        <title>Dashboard - Structa Painel</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
         <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
             body {
                 font-family: 'Poppins', sans-serif;
                 background: #F6F7F8;
             }
+            
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                height: 100vh;
+                width: 280px;
+                background: linear-gradient(180deg, #1F3B4D 0%, #2A4A5C 100%);
+                box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+                overflow-y: auto;
+            }
+            
+            .sidebar-header {
+                padding: 24px 20px;
+                border-bottom: 1px solid rgba(201, 165, 109, 0.2);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .sidebar-logo {
+                height: 40px;
+                width: auto;
+            }
+            
+            .sidebar-title {
+                font-family: 'Playfair Display', serif;
+                font-weight: 600;
+                letter-spacing: 0.15em;
+                color: #C9A56D;
+                font-size: 1.3rem;
+            }
+            
+            .sidebar-menu {
+                padding: 20px 0;
+            }
+            
+            .menu-item {
+                display: flex;
+                align-items: center;
+                padding: 14px 24px;
+                color: #F6F7F8;
+                text-decoration: none;
+                transition: all 0.3s;
+                cursor: pointer;
+                border-left: 3px solid transparent;
+            }
+            
+            .menu-item:hover {
+                background: rgba(201, 165, 109, 0.1);
+                border-left-color: #C9A56D;
+            }
+            
+            .menu-item.active {
+                background: rgba(201, 165, 109, 0.15);
+                border-left-color: #C9A56D;
+                color: #C9A56D;
+            }
+            
+            .menu-item i {
+                width: 24px;
+                margin-right: 12px;
+                text-align: center;
+            }
+            
+            .main-content {
+                margin-left: 280px;
+                min-height: 100vh;
+                transition: margin-left 0.3s ease;
+            }
+            
+            .top-bar {
+                background: white;
+                padding: 20px 32px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .user-info {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            
+            .user-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-weight: 600;
+            }
+            
+            .content-area {
+                padding: 32px;
+            }
+            
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 24px;
+                margin-bottom: 32px;
+            }
+            
+            .stat-card {
+                background: white;
+                padding: 24px;
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+            
+            .stat-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .stat-icon {
+                width: 56px;
+                height: 56px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+                font-weight: 700;
+                color: #1F3B4D;
+                margin-bottom: 8px;
+            }
+            
+            .stat-label {
+                color: #666;
+                font-size: 0.9rem;
+            }
+            
+            .chart-container {
+                background: white;
+                padding: 24px;
+                border-radius: 12px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                margin-bottom: 24px;
+            }
+            
+            .mobile-menu-btn {
+                display: none;
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                width: 56px;
+                height: 56px;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                border-radius: 50%;
+                border: none;
+                color: white;
+                font-size: 20px;
+                box-shadow: 0 4px 12px rgba(201, 165, 109, 0.4);
+                cursor: pointer;
+                z-index: 999;
+            }
+            
+            @media (max-width: 768px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                }
+                
+                .sidebar.active {
+                    transform: translateX(0);
+                }
+                
+                .main-content {
+                    margin-left: 0;
+                }
+                
+                .mobile-menu-btn {
+                    display: block;
+                }
+                
+                .top-bar {
+                    padding: 16px 20px;
+                }
+                
+                .content-area {
+                    padding: 20px;
+                }
+                
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
         </style>
     </head>
-    <body class="bg-gray-100">
-        <div class="min-h-screen flex items-center justify-center">
-            <div class="bg-white p-8 rounded-lg shadow-lg text-center">
-                <div class="text-6xl mb-4" style="color: #C9A56D;">⚕</div>
-                <h1 class="text-3xl font-bold mb-2" style="color: #1F3B4D;">Dashboard em Construção</h1>
-                <p class="text-gray-600 mb-6">Bem-vindo ao painel administrativo da Structa!</p>
-                <p class="text-sm text-gray-500 mb-4">Usuário: <span id="userName" class="font-semibold"></span></p>
-                <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600">
-                    <i class="fas fa-sign-out-alt mr-2"></i>Sair
-                </button>
+    <body>
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="/static/logo-structa.png" alt="Structa" class="sidebar-logo">
+                <div class="sidebar-title">STRUCTA</div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="/dashboard" class="menu-item active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/vendas" class="menu-item">
+                    <i class="fas fa-handshake"></i>
+                    <span>Apresentação de Vendas</span>
+                </a>
+                <a href="/clientes" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Clientes</span>
+                </a>
+                <a href="/cadastro-vendas" class="menu-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Cadastrar Vendas</span>
+                </a>
+                <a href="/relatorios" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Relatórios</span>
+                </a>
+                <a href="/configuracoes" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Configurações</span>
+                </a>
+                <a onclick="logout()" class="menu-item" style="margin-top: auto; border-top: 1px solid rgba(201, 165, 109, 0.2);">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                </a>
+            </nav>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <h1 style="font-size: 1.5rem; font-weight: 600; color: #1F3B4D;">Dashboard</h1>
+                <div class="user-info">
+                    <div>
+                        <div style="font-weight: 600; color: #1F3B4D; text-align: right;" id="userName">Carregando...</div>
+                        <div style="font-size: 0.85rem; color: #666; text-align: right;" id="userRole">Admin</div>
+                    </div>
+                    <div class="user-avatar" id="userAvatar">A</div>
+                </div>
+            </div>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(76, 175, 80, 0.1); color: #4CAF50;">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-value">R$ 0,00</div>
+                        <div class="stat-label">Vendas do Mês</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(33, 150, 243, 0.1); color: #2196F3;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Clientes Ativos</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(255, 152, 0, 0.1); color: #FF9800;">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Negociações</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgba(156, 39, 176, 0.1); color: #9C27B0;">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-value">0%</div>
+                        <div class="stat-label">Taxa de Conversão</div>
+                    </div>
+                </div>
+                
+                <!-- Charts -->
+                <div class="chart-container">
+                    <h2 style="font-size: 1.2rem; font-weight: 600; color: #1F3B4D; margin-bottom: 20px;">
+                        Vendas por Mês
+                    </h2>
+                    <canvas id="salesChart" height="80"></canvas>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+                    <div class="chart-container">
+                        <h2 style="font-size: 1.2rem; font-weight: 600; color: #1F3B4D; margin-bottom: 20px;">
+                            Tipos de Consórcio
+                        </h2>
+                        <canvas id="consortiumChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h2 style="font-size: 1.2rem; font-weight: 600; color: #1F3B4D; margin-bottom: 20px;">
+                            Status das Vendas
+                        </h2>
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
         
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
         <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
         <script>
+            // Auth check
             const token = localStorage.getItem('token');
             const user = JSON.parse(localStorage.getItem('user') || '{}');
             
             if (!token) {
                 window.location.href = '/';
             } else {
-                document.getElementById('userName').textContent = user.name || user.email;
+                document.getElementById('userName').textContent = user.name || 'Usuário';
+                document.getElementById('userRole').textContent = user.role === 'admin' ? 'Administrador' : 'Vendedor';
+                document.getElementById('userAvatar').textContent = (user.name || 'U')[0].toUpperCase();
             }
             
             function logout() {
-                localStorage.removeItem('token');
-                localStorage.removeItem('user');
-                window.location.href = '/';
+                if (confirm('Deseja realmente sair?')) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = '/';
+                }
             }
+            
+            function toggleSidebar() {
+                document.getElementById('sidebar').classList.toggle('active');
+            }
+            
+            // Charts
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Vendas (R$)',
+                        data: [0, 0, 0, 0, 0, 0],
+                        borderColor: '#C9A56D',
+                        backgroundColor: 'rgba(201, 165, 109, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            const consortiumCtx = document.getElementById('consortiumChart').getContext('2d');
+            new Chart(consortiumCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Imóvel', 'Veículo', 'Outros'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: ['#1F3B4D', '#C9A56D', '#365C73']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true
+                }
+            });
+            
+            const statusCtx = document.getElementById('statusChart').getContext('2d');
+            new Chart(statusCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Ativas', 'Pendentes', 'Canceladas'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: ['#4CAF50', '#FF9800', '#F44336']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true
+                }
+            });
         </script>
     </body>
     </html>
