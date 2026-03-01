@@ -1,16 +1,18 @@
-# Structa Admin Panel
+# Structa Engenharia Patrimonial - Painel Administrativo
 
 ## 🎯 Visão Geral
-Sistema administrativo robusto para gestão de vendas de consórcios da Structa. Aplicação web moderna com autenticação segura, níveis de acesso e interface elegante seguindo a identidade visual da marca.
+Sistema administrativo robusto para gestão da Structa Engenharia Patrimonial de Alta Performance. Aplicação web moderna com autenticação segura, níveis de acesso e interface elegante seguindo a identidade visual da marca.
 
 ## 🌐 URLs de Acesso
+
+### Produção (Configurado)
+- **Domínio Principal**: https://www.structaep.com.br
+- **Painel Admin**: https://painel.structaep.com.br (após deployment)
+- **Cloudflare Pages**: Aguardando configuração
 
 ### Desenvolvimento (Sandbox)
 - **Aplicação**: https://3000-ickbeww795x0p12y0gre1-2e1b9533.sandbox.novita.ai
 - **API**: https://3000-ickbeww795x0p12y0gre1-2e1b9533.sandbox.novita.ai/api
-
-### Produção (Cloudflare Pages)
-- **Aguardando deployment** - Configurar API Key do Cloudflare no Deploy tab
 
 ## ✅ Funcionalidades Implementadas
 
@@ -218,4 +220,4 @@ npm run test                 # Testar aplicação
 
 ---
 
-**Desenvolvido para Structa** - Sistema de Gestão de Consórcios
+**Desenvolvido para Structa Engenharia Patrimonial** - Sistema de Gestão de Alta Performance

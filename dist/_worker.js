@@ -6,7 +6,7 @@ var Hi=Object.defineProperty;var ln=e=>{throw TypeError(e)};var Gi=(e,r,t)=>r in
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Structa Admin - Login</title>
+        <title>Structa Engenharia Patrimonial - Painel Administrativo</title>
         <script src="https://cdn.tailwindcss.com"><\/script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,10 +51,17 @@ var Hi=Object.defineProperty;var ln=e=>{throw TypeError(e)};var Gi=(e,r,t)=>r in
                 text-align: center;
             }
             
-            .medical-symbol {
-                font-size: 3rem;
-                color: #C9A56D;
+            .logo-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
                 margin-bottom: 15px;
+            }
+            
+            .logo-image {
+                height: 80px;
+                width: auto;
                 filter: drop-shadow(0 2px 8px rgba(201, 165, 109, 0.3));
             }
             
@@ -142,9 +149,16 @@ var Hi=Object.defineProperty;var ln=e=>{throw TypeError(e)};var Gi=(e,r,t)=>r in
     <body>
         <div class="login-card">
             <div class="login-header">
-                <div class="medical-symbol">⚕</div>
-                <h1 class="logo-text">STRUCTA</h1>
-                <p style="color: #C9A56D; margin-top: 10px; font-size: 0.9rem;">Painel Administrativo</p>
+                <div class="logo-container">
+                    <img src="/static/logo-structa.png" alt="Structa" class="logo-image">
+                    <h1 class="logo-text">STRUCTA</h1>
+                </div>
+                <p style="color: #C9A56D; margin-top: 10px; font-size: 0.9rem; line-height: 1.4;">
+                    Engenharia Patrimonial<br>de Alta Performance
+                </p>
+                <p style="color: #F6F7F8; margin-top: 12px; font-size: 0.85rem; opacity: 0.9;">
+                    Painel Administrativo
+                </p>
             </div>
             
             <div class="login-body">
