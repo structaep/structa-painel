@@ -169,6 +169,30 @@ app.get('/', (c) => {
                 overflow: hidden;
                 max-width: 450px;
                 width: 90%;
+                margin: 20px;
+            }
+            
+            @media (max-width: 640px) {
+                .logo-text {
+                    font-size: 1.5rem;
+                }
+                
+                .logo-image {
+                    height: 60px !important;
+                }
+                
+                .login-card {
+                    width: 95%;
+                    margin: 10px;
+                }
+                
+                .login-header {
+                    padding: 30px 20px !important;
+                }
+                
+                .login-body {
+                    padding: 30px 20px !important;
+                }
             }
             
             .login-header {
@@ -270,6 +294,22 @@ app.get('/', (c) => {
                 font-size: 0.9rem;
                 display: none;
             }
+            
+            .forgot-password {
+                text-align: center;
+                margin-top: 16px;
+            }
+            
+            .forgot-password a {
+                color: #1F3B4D;
+                text-decoration: none;
+                font-size: 0.9rem;
+                transition: color 0.3s;
+            }
+            
+            .forgot-password a:hover {
+                color: #C9A56D;
+            }
         </style>
     </head>
     <body>
@@ -294,15 +334,16 @@ app.get('/', (c) => {
                 <form id="loginForm">
                     <div class="form-group">
                         <label class="form-label">
-                            <i class="fas fa-envelope" style="color: #C9A56D; margin-right: 5px;"></i>
-                            E-mail
+                            <i class="fas fa-user" style="color: #C9A56D; margin-right: 5px;"></i>
+                            Usuário
                         </label>
                         <input 
-                            type="email" 
+                            type="text" 
                             id="email" 
                             class="form-input" 
-                            placeholder="seu@email.com"
+                            placeholder="Digite seu usuário"
                             required
+                            autocomplete="username"
                         >
                     </div>
                     
@@ -315,8 +356,9 @@ app.get('/', (c) => {
                             type="password" 
                             id="password" 
                             class="form-input" 
-                            placeholder="••••••••"
+                            placeholder="Digite sua senha"
                             required
+                            autocomplete="current-password"
                         >
                     </div>
                     
@@ -324,12 +366,14 @@ app.get('/', (c) => {
                         <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>
                         Entrar
                     </button>
+                    
+                    <div class="forgot-password">
+                        <a href="#" onclick="handleForgotPassword(event)">
+                            <i class="fas fa-question-circle" style="margin-right: 5px;"></i>
+                            Esqueci minha senha
+                        </a>
+                    </div>
                 </form>
-                
-                <div style="margin-top: 20px; text-align: center; font-size: 0.85rem; color: #666;">
-                    <p>Credenciais padrão para teste:</p>
-                    <p style="margin-top: 5px;"><strong>admin@structa.com.br</strong> / <strong>admin123</strong></p>
-                </div>
             </div>
         </div>
         
@@ -355,6 +399,11 @@ app.get('/', (c) => {
             function hideMessages() {
                 errorMessage.style.display = 'none';
                 successMessage.style.display = 'none';
+            }
+            
+            function handleForgotPassword(event) {
+                event.preventDefault();
+                alert('Para recuperar sua senha, entre em contato com o administrador do sistema.\n\nEmail: suporte@structaep.com.br');
             }
             
             loginForm.addEventListener('submit', async (e) => {
