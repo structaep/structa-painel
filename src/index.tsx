@@ -403,39 +403,57 @@ app.get('/', (c) => {
             
             function handleForgotPassword(event) {
                 event.preventDefault();
-                alert('Para recuperar sua senha, entre em contato com o administrador do sistema.\n\nEmail: suporte@structaep.com.br');
+                alert('Para recuperar sua senha, entre em contato com o administrador do sistema.\\n\\nEmail: suporte@structaep.com.br');
             }
             
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 hideMessages();
                 
+                console.log('Form submitted!');
+                
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
+                
+                console.log('Email:', email, 'Password length:', password.length);
+                
+                if (!email || !password) {
+                    showError('Por favor, preencha todos os campos.');
+                    return;
+                }
                 
                 loginButton.disabled = true;
                 loginButton.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i>Entrando...';
                 
                 try {
+                    console.log('Sending login request...');
                     const response = await axios.post('/api/auth/login', {
                         email,
                         password
                     });
+                    
+                    console.log('Response received:', response.data);
                     
                     if (response.data.token) {
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('user', JSON.stringify(response.data.user));
                         
                         showSuccess('Login realizado com sucesso! Redirecionando...');
+                        console.log('Redirecting to dashboard...');
                         
                         setTimeout(() => {
                             window.location.href = '/dashboard';
                         }, 1000);
+                    } else {
+                        showError('Resposta inválida do servidor.');
                     }
                 } catch (error) {
                     console.error('Login error:', error);
+                    console.error('Error details:', error.response);
                     if (error.response?.data?.error) {
                         showError(error.response.data.error);
+                    } else if (error.message) {
+                        showError('Erro: ' + error.message);
                     } else {
                         showError('Erro ao fazer login. Tente novamente.');
                     }
