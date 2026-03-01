@@ -1167,24 +1167,24 @@ app.get('/vendas/apresentacao', (c) => {
                 line-height: 1.2;
             }
             
-            .two-columns {
+            .three-columns {
                 display: grid;
-                grid-template-columns: 280px 1fr;
-                gap: 30px;
+                grid-template-columns: 240px 1fr 1fr;
+                gap: 25px;
                 margin-bottom: 18px;
                 align-items: flex-start;
             }
             
             .photo-column img {
                 width: 100%;
-                max-width: 280px;
+                max-width: 240px;
                 border-radius: 10px;
                 box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
             }
             
             .text-column {
                 color: #F6F7F8;
-                font-size: 0.8rem;
+                font-size: 0.75rem;
                 line-height: 1.5;
                 font-weight: 300;
             }
@@ -1196,6 +1196,40 @@ app.get('/vendas/apresentacao', (c) => {
             .text-column strong {
                 color: #C9A56D;
                 font-weight: 500;
+            }
+            
+            .info-column {
+                color: #F6F7F8;
+                font-size: 0.75rem;
+                line-height: 1.5;
+                font-weight: 300;
+            }
+            
+            .info-column h3 {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.1rem;
+                color: #C9A56D;
+                margin-bottom: 4px;
+                font-weight: 600;
+                line-height: 1.3;
+            }
+            
+            .info-column .subtitle {
+                font-size: 0.7rem;
+                color: #F6F7F8;
+                margin-bottom: 3px;
+                line-height: 1.3;
+            }
+            
+            .info-column .credentials {
+                font-size: 0.65rem;
+                color: rgba(246, 247, 248, 0.7);
+                margin-bottom: 10px;
+                line-height: 1.2;
+            }
+            
+            .info-column p {
+                margin-bottom: 8px;
             }
             
             .stats-section {
@@ -1333,28 +1367,32 @@ app.get('/vendas/apresentacao', (c) => {
             
             /* Responsivo para telas médias */
             @media (max-width: 1200px) {
-                .two-columns { 
-                    grid-template-columns: 260px 1fr;
-                    gap: 25px;
+                .three-columns { 
+                    grid-template-columns: 220px 1fr 1fr;
+                    gap: 20px;
                 }
-                .photo-column img { max-width: 260px; }
-                .text-column { font-size: 0.75rem; }
+                .photo-column img { max-width: 220px; }
+                .text-column { font-size: 0.7rem; }
+                .info-column { font-size: 0.7rem; }
+                .info-column h3 { font-size: 1rem; }
             }
             
             /* Responsivo para tablets */
             @media (max-width: 1024px) {
                 .slide-content { padding: 15px 30px 70px; }
-                .two-columns { 
+                .three-columns { 
                     grid-template-columns: 1fr; 
                     gap: 15px;
                     margin-bottom: 15px;
                 }
                 .photo-column { text-align: center; }
-                .photo-column img { max-width: 240px; }
+                .photo-column img { max-width: 200px; }
                 .stats-section { gap: 12px; margin-bottom: 15px; }
                 .logo-section .company-name { font-size: 1.5rem; }
                 .logo-section .tagline { font-size: 0.7rem; }
-                .text-column { font-size: 0.75rem; }
+                .text-column { font-size: 0.7rem; }
+                .info-column { font-size: 0.7rem; }
+                .info-column h3 { font-size: 0.95rem; }
                 .cta-section { padding: 16px 25px; }
                 .cta-section h2 { font-size: 1.1rem; }
                 .cta-section p { font-size: 0.75rem; margin-bottom: 12px; }
@@ -1374,9 +1412,13 @@ app.get('/vendas/apresentacao', (c) => {
                 .logo-section .brand-text { align-items: center; }
                 .logo-section .company-name { font-size: 1.3rem; }
                 .logo-section .tagline { font-size: 0.65rem; text-align: center; }
-                .photo-column img { max-width: 200px; }
-                .text-column { font-size: 0.7rem; }
+                .photo-column img { max-width: 180px; }
+                .text-column { font-size: 0.65rem; }
                 .text-column p { margin-bottom: 6px; }
+                .info-column { font-size: 0.65rem; }
+                .info-column h3 { font-size: 0.9rem; margin-bottom: 3px; }
+                .info-column .subtitle { font-size: 0.65rem; }
+                .info-column .credentials { font-size: 0.6rem; margin-bottom: 6px; }
                 .stats-section { gap: 10px; margin-bottom: 12px; }
                 .stat-card { padding: 10px 15px; }
                 .stat-card .number { font-size: 1.3rem; }
@@ -1397,9 +1439,12 @@ app.get('/vendas/apresentacao', (c) => {
                 .logo-section img { height: 42px; }
                 .logo-section .company-name { font-size: 1.5rem; }
                 .logo-section .tagline { font-size: 0.7rem; }
-                .two-columns { gap: 20px; margin-bottom: 12px; }
-                .text-column { font-size: 0.75rem; line-height: 1.4; }
+                .three-columns { gap: 18px; margin-bottom: 12px; }
+                .text-column { font-size: 0.7rem; line-height: 1.4; }
                 .text-column p { margin-bottom: 6px; }
+                .info-column { font-size: 0.7rem; line-height: 1.4; }
+                .info-column h3 { font-size: 0.95rem; }
+                .info-column p { margin-bottom: 6px; }
                 .stats-section { margin-bottom: 12px; gap: 12px; }
                 .stat-card { padding: 10px 16px; }
                 .stat-card .number { font-size: 1.3rem; }
@@ -1432,10 +1477,16 @@ app.get('/vendas/apresentacao', (c) => {
                     </div>
                 </div>
                 
-                <!-- Duas Colunas -->
-                <div class="two-columns">
+                <!-- Três Colunas -->
+                <div class="three-columns">
                     <div class="photo-column">
-                        <img src="/static/medico-foto.jpg" alt="Profissional">
+                        <img src="/static/medico-foto.jpg" alt="Dr. Patrese Luiz Castro Alves">
+                    </div>
+                    <div class="info-column">
+                        <h3>Dr. Patrese Luiz Castro Alves</h3>
+                        <div class="subtitle">Médico ultrassonografista há mais de 12 anos.</div>
+                        <div class="credentials">CRM/SP 160.340 • RQE 98.523</div>
+                        <p>Sou médico por vocação, ultrassonografista por especialização e, acima de tudo, alguém que sempre acreditou que a medicina deve oferecer <strong>dignidade, estabilidade e propósito.</strong></p>
                     </div>
                     <div class="text-column">
                         <p>Quando vi que funcionava, percebi algo importante:</p>
