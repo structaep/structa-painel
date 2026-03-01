@@ -10,7 +10,7 @@
     {
       "binding": "DB",
       "database_name": "structa-painel-production",
-      "database_id": "local-dev"
+      "database_id": "ff0027fb-66ac-4b06-932d-abfb35fc2b13"
     }
   ]
 }
