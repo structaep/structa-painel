@@ -918,4 +918,545 @@ app.get('/dashboard', (c) => {
   `)
 })
 
+// ========== PÁGINA DE VENDAS (APRESENTAÇÃO) ==========
+
+app.get('/vendas', (c) => {
+  return c.html(`
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Apresentação de Vendas - Structa</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Poppins', sans-serif; background: #F6F7F8; }
+            
+            .sidebar {
+                position: fixed; left: 0; top: 0; height: 100vh; width: 280px;
+                background: linear-gradient(180deg, #1F3B4D 0%, #2A4A5C 100%);
+                box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;
+                z-index: 1000; overflow-y: auto;
+            }
+            .sidebar-header {
+                padding: 24px 20px; border-bottom: 1px solid rgba(201, 165, 109, 0.2);
+                display: flex; align-items: center; gap: 12px;
+            }
+            .sidebar-logo { height: 40px; width: auto; }
+            .sidebar-title {
+                font-family: 'Playfair Display', serif; font-weight: 600;
+                letter-spacing: 0.15em; color: #C9A56D; font-size: 1.3rem;
+            }
+            .sidebar-menu { padding: 20px 0; }
+            .menu-item {
+                display: flex; align-items: center; padding: 14px 24px; color: #F6F7F8;
+                text-decoration: none; transition: all 0.3s; cursor: pointer;
+                border-left: 3px solid transparent;
+            }
+            .menu-item:hover { background: rgba(201, 165, 109, 0.1); border-left-color: #C9A56D; }
+            .menu-item.active { background: rgba(201, 165, 109, 0.15); border-left-color: #C9A56D; color: #C9A56D; }
+            .menu-item i { width: 24px; margin-right: 12px; text-align: center; }
+            
+            .main-content { margin-left: 280px; min-height: 100vh; transition: margin-left 0.3s ease; }
+            .top-bar {
+                background: white; padding: 20px 32px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                display: flex; justify-content: space-between; align-items: center;
+            }
+            .user-info { display: flex; align-items: center; gap: 12px; }
+            .user-avatar {
+                width: 40px; height: 40px; border-radius: 50%;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                display: flex; align-items: center; justify-content: center;
+                color: white; font-weight: 600;
+            }
+            .content-area { padding: 32px; }
+            
+            .page-container {
+                min-height: calc(100vh - 80px);
+                background: #F6F7F8;
+                padding: 40px 20px;
+            }
+            .card-option {
+                background: white;
+                border-radius: 16px;
+                padding: 40px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                transition: all 0.3s;
+                cursor: pointer;
+                border: 3px solid transparent;
+            }
+            .card-option:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 40px rgba(201, 165, 109, 0.2);
+                border-color: #C9A56D;
+            }
+            .icon-circle {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                margin: 0 auto 24px;
+            }
+            
+            @media (max-width: 768px) {
+                .sidebar { transform: translateX(-100%); }
+                .sidebar.active { transform: translateX(0); }
+                .main-content { margin-left: 0; }
+            }
+        </style>
+    </head>
+    <body>
+        ${getSidebarHTML()}
+        
+        <div class="main-content">
+            ${getTopBarHTML('Apresentação de Vendas')}
+            
+            <div class="content-area">
+                <div class="page-container">
+                    <h1 style="font-size: 2rem; font-weight: 700; color: #1F3B4D; text-align: center; margin-bottom: 16px;">
+                        Apresentação Interativa de Vendas
+                    </h1>
+                    <p style="text-align: center; color: #666; margin-bottom: 48px; font-size: 1.1rem;">
+                        Escolha uma opção para continuar
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; max-width: 900px; margin: 0 auto;">
+                        <div class="card-option" onclick="window.location.href='/vendas/apresentacao'">
+                            <div class="icon-circle" style="background: linear-gradient(135deg, #1F3B4D 0%, #365C73 100%); color: white;">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <h2 style="font-size: 1.5rem; font-weight: 600; color: #1F3B4D; text-align: center; margin-bottom: 12px;">
+                                Iniciar Apresentação
+                            </h2>
+                            <p style="color: #666; text-align: center; line-height: 1.6;">
+                                Inicie o modo apresentação em tela cheia com navegação por slides
+                            </p>
+                        </div>
+                        
+                        <div class="card-option" onclick="window.location.href='/vendas/configuracoes'">
+                            <div class="icon-circle" style="background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%); color: white;">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h2 style="font-size: 1.5rem; font-weight: 600; color: #1F3B4D; text-align: center; margin-bottom: 12px;">
+                                Configurações
+                            </h2>
+                            <p style="color: #666; text-align: center; line-height: 1.6;">
+                                Gerencie os slides, ative ou desative slides específicos
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+        <script>
+            const token = localStorage.getItem('token');
+            if (!token) window.location.href = '/';
+            
+            function logout() {
+                if (confirm('Deseja realmente sair?')) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = '/';
+                }
+            }
+        </script>
+    </body>
+    </html>
+  `)
+})
+
+// ========== APRESENTAÇÃO INTERATIVA (SLIDE 1) ==========
+
+app.get('/vendas/apresentacao', (c) => {
+  return c.html(`
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Apresentação Structa</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: 'Poppins', sans-serif;
+                background: #1F3B4D;
+                overflow: hidden;
+            }
+            
+            .slide-container {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
+            
+            .slide-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                padding: 60px 80px;
+                overflow-y: auto;
+            }
+            
+            .premium-badge {
+                display: inline-block;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                color: white;
+                padding: 12px 40px;
+                border-radius: 50px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                text-align: center;
+                margin: 0 auto 40px;
+                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.3);
+            }
+            
+            .logo-section {
+                text-align: center;
+                margin-bottom: 60px;
+            }
+            
+            .logo-section img {
+                height: 80px;
+                width: auto;
+                margin-bottom: 20px;
+            }
+            
+            .logo-section .company-name {
+                font-family: 'Playfair Display', serif;
+                font-size: 3rem;
+                font-weight: 700;
+                color: #C9A56D;
+                letter-spacing: 0.15em;
+                margin-bottom: 12px;
+            }
+            
+            .logo-section .tagline {
+                font-size: 1.3rem;
+                color: #F6F7F8;
+                font-weight: 300;
+            }
+            
+            .two-columns {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+                margin-bottom: 60px;
+                align-items: center;
+            }
+            
+            .photo-column img {
+                width: 100%;
+                max-width: 500px;
+                border-radius: 20px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            }
+            
+            .text-column {
+                color: #F6F7F8;
+                font-size: 1.15rem;
+                line-height: 1.9;
+                font-weight: 300;
+            }
+            
+            .text-column p {
+                margin-bottom: 20px;
+            }
+            
+            .text-column strong {
+                color: #C9A56D;
+                font-weight: 600;
+            }
+            
+            .stats-section {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+                margin-bottom: 60px;
+                max-width: 900px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .stat-card {
+                background: rgba(201, 165, 109, 0.1);
+                border: 2px solid #C9A56D;
+                border-radius: 16px;
+                padding: 30px;
+                text-align: center;
+            }
+            
+            .stat-card .number {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: #C9A56D;
+                margin-bottom: 8px;
+            }
+            
+            .stat-card .label {
+                color: #F6F7F8;
+                font-size: 1.1rem;
+            }
+            
+            .cta-section {
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                border-radius: 20px;
+                padding: 50px;
+                text-align: center;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+            
+            .cta-section h2 {
+                font-size: 2.2rem;
+                font-weight: 700;
+                color: #1F3B4D;
+                margin-bottom: 16px;
+            }
+            
+            .cta-section p {
+                font-size: 1.2rem;
+                color: #2A2A2A;
+                margin-bottom: 32px;
+                line-height: 1.6;
+            }
+            
+            .cta-button {
+                display: inline-block;
+                background: #1F3B4D;
+                color: white;
+                padding: 18px 50px;
+                border-radius: 50px;
+                font-size: 1.2rem;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.3s;
+                box-shadow: 0 4px 15px rgba(31, 59, 77, 0.3);
+            }
+            
+            .cta-button:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(31, 59, 77, 0.4);
+            }
+            
+            .slide-navigation {
+                position: fixed;
+                bottom: 40px;
+                right: 40px;
+                display: flex;
+                gap: 16px;
+                z-index: 1000;
+            }
+            
+            .nav-button {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                color: white;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.4);
+            }
+            
+            .nav-button:hover {
+                transform: scale(1.1);
+            }
+            
+            .nav-button:disabled {
+                opacity: 0.3;
+                cursor: not-allowed;
+            }
+            
+            .exit-button {
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                padding: 12px 24px;
+                border-radius: 50px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+            
+            .exit-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+            
+            @media (max-width: 1024px) {
+                .slide-content { padding: 40px; }
+                .two-columns { grid-template-columns: 1fr; gap: 40px; }
+                .stats-section { grid-template-columns: 1fr; }
+                .logo-section .company-name { font-size: 2rem; }
+                .logo-section .tagline { font-size: 1.1rem; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <button class="exit-button" onclick="window.location.href='/vendas'">
+                <i class="fas fa-times"></i> Sair da Apresentação
+            </button>
+            
+            <div class="slide-content">
+                <!-- Badge Premium -->
+                <div style="text-align: center;">
+                    <div class="premium-badge">Consultoria Premium</div>
+                </div>
+                
+                <!-- Logo e Nome -->
+                <div class="logo-section">
+                    <img src="/static/logo-structa.png" alt="Structa">
+                    <div class="company-name">STRUCTA</div>
+                    <div class="tagline">Engenharia Patrimonial de Alta Performance para médicos.</div>
+                </div>
+                
+                <!-- Duas Colunas -->
+                <div class="two-columns">
+                    <div class="photo-column">
+                        <img src="/static/medico-foto.jpg" alt="Profissional">
+                    </div>
+                    <div class="text-column">
+                        <p>Quando vi que funcionava, percebi algo importante:</p>
+                        <p><strong>Muitos médicos vivem exatamente o que eu vivi.</strong><br>
+                        Trabalham muito. Constroem pouco.<br>
+                        Dependem exclusivamente da própria agenda.</p>
+                        <p>Foi então que decidi compartilhar esse caminho.</p>
+                        <p>Hoje, além de médico, atuo ajudando colegas a estruturarem patrimônio com <strong>estratégia, clareza e visão de longo prazo.</strong></p>
+                        <p><strong>Não se trata de promessas rápidas.</strong><br>
+                        Se trata de construção sólida.</p>
+                        <p><strong>Não se trata de abandonar a medicina.</strong><br>
+                        Se trata de não depender exclusivamente dela.</p>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <div class="number">+R$ 100Mi</div>
+                        <div class="label">em Créditos Gerenciados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">97,8%</div>
+                        <div class="label">de Satisfação</div>
+                    </div>
+                </div>
+                
+                <!-- CTA -->
+                <div class="cta-section">
+                    <h2>Pronto para transformar seu futuro financeiro?</h2>
+                    <p>Descubra como nossa metodologia pode gerar renda passiva consistente e construir seu patrimônio de forma inteligente</p>
+                    <a href="#" class="cta-button" onclick="nextSlide(); return false;">
+                        Pronto para conhecer nosso ecossistema <i class="fas fa-arrow-right" style="margin-left: 10px;"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Navegação -->
+            <div class="slide-navigation">
+                <button class="nav-button" onclick="previousSlide()" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="nav-button" onclick="nextSlide()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <script>
+            function nextSlide() {
+                alert('Próximo slide será implementado! Por enquanto, este é o slide 1.');
+                // window.location.href = '/vendas/apresentacao/slide2';
+            }
+            
+            function previousSlide() {
+                // window.location.href = '/vendas/apresentacao';
+            }
+            
+            // Navegação por teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+                if (e.key === 'ArrowLeft') previousSlide();
+                if (e.key === 'Escape') window.location.href = '/vendas';
+            });
+        </script>
+    </body>
+    </html>
+  `)
+})
+
 export default app
+
+function getSidebarHTML() {
+  return `
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="/static/logo-structa.png" alt="Structa" class="sidebar-logo">
+            <div class="sidebar-title">STRUCTA</div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <a href="/dashboard" class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/vendas" class="menu-item active">
+                <i class="fas fa-handshake"></i>
+                <span>Apresentação de Vendas</span>
+            </a>
+            <a href="/clientes" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+            <a href="/cadastro-vendas" class="menu-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Cadastrar Vendas</span>
+            </a>
+            <a href="/relatorios" class="menu-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>Relatórios</span>
+            </a>
+            <a href="/configuracoes" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Configurações</span>
+            </a>
+            <a onclick="logout()" class="menu-item" style="margin-top: auto; border-top: 1px solid rgba(201, 165, 109, 0.2);">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Sair</span>
+            </a>
+        </nav>
+    </div>
+  `;
+}
+
+function getTopBarHTML(title: string) {
+  return `
+    <div class="top-bar">
+        <h1 style="font-size: 1.5rem; font-weight: 600; color: #1F3B4D;">${title}</h1>
+        <div class="user-info">
+            <div>
+                <div style="font-weight: 600; color: #1F3B4D; text-align: right;" id="userName">Admin</div>
+                <div style="font-size: 0.85rem; color: #666; text-align: right;">Administrador</div>
+            </div>
+            <div class="user-avatar">A</div>
+        </div>
+    </div>
+  `;
+}
