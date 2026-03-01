@@ -1100,79 +1100,83 @@ app.get('/vendas/apresentacao', (c) => {
                 display: flex;
                 flex-direction: column;
                 position: relative;
+                overflow: hidden;
             }
             
             .slide-content {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
-                padding: 60px 80px;
-                overflow-y: auto;
+                padding: 30px 60px 80px;
+                overflow: hidden;
             }
             
             .premium-badge {
                 display: inline-block;
                 background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
                 color: white;
-                padding: 12px 40px;
+                padding: 8px 30px;
                 border-radius: 50px;
-                font-size: 1.1rem;
+                font-size: 0.95rem;
                 font-weight: 600;
                 text-align: center;
-                margin: 0 auto 40px;
+                margin: 0 auto 20px;
                 box-shadow: 0 4px 15px rgba(201, 165, 109, 0.3);
             }
             
             .logo-section {
                 text-align: center;
-                margin-bottom: 60px;
+                margin-bottom: 25px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
             }
             
             .logo-section img {
-                height: 80px;
+                height: 50px;
                 width: auto;
-                margin-bottom: 20px;
             }
             
             .logo-section .company-name {
                 font-family: 'Playfair Display', serif;
-                font-size: 3rem;
+                font-size: 2rem;
                 font-weight: 700;
                 color: #C9A56D;
                 letter-spacing: 0.15em;
-                margin-bottom: 12px;
             }
             
             .logo-section .tagline {
-                font-size: 1.3rem;
+                font-size: 1rem;
                 color: #F6F7F8;
                 font-weight: 300;
             }
             
             .two-columns {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 60px;
-                margin-bottom: 60px;
+                grid-template-columns: 0.9fr 1.1fr;
+                gap: 30px;
+                margin-bottom: 25px;
                 align-items: center;
+                flex: 1;
             }
             
             .photo-column img {
                 width: 100%;
-                max-width: 500px;
-                border-radius: 20px;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+                max-width: 350px;
+                border-radius: 16px;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
             }
             
             .text-column {
                 color: #F6F7F8;
-                font-size: 1.15rem;
-                line-height: 1.9;
+                font-size: 0.95rem;
+                line-height: 1.7;
                 font-weight: 300;
             }
             
             .text-column p {
-                margin-bottom: 20px;
+                margin-bottom: 12px;
             }
             
             .text-column strong {
@@ -1183,63 +1187,58 @@ app.get('/vendas/apresentacao', (c) => {
             .stats-section {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 40px;
-                margin-bottom: 60px;
-                max-width: 900px;
-                margin-left: auto;
-                margin-right: auto;
+                gap: 25px;
+                margin-bottom: 20px;
             }
             
             .stat-card {
                 background: rgba(201, 165, 109, 0.1);
                 border: 2px solid #C9A56D;
-                border-radius: 16px;
-                padding: 30px;
+                border-radius: 12px;
+                padding: 18px;
                 text-align: center;
             }
             
             .stat-card .number {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
                 font-weight: 700;
                 color: #C9A56D;
-                margin-bottom: 8px;
+                margin-bottom: 4px;
             }
             
             .stat-card .label {
                 color: #F6F7F8;
-                font-size: 1.1rem;
+                font-size: 0.9rem;
             }
             
             .cta-section {
                 background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
-                border-radius: 20px;
-                padding: 50px;
+                border-radius: 16px;
+                padding: 25px 35px;
                 text-align: center;
-                max-width: 1000px;
-                margin: 0 auto;
             }
             
             .cta-section h2 {
-                font-size: 2.2rem;
+                font-size: 1.5rem;
                 font-weight: 700;
                 color: #1F3B4D;
-                margin-bottom: 16px;
+                margin-bottom: 10px;
             }
             
             .cta-section p {
-                font-size: 1.2rem;
+                font-size: 0.95rem;
                 color: #2A2A2A;
-                margin-bottom: 32px;
-                line-height: 1.6;
+                margin-bottom: 18px;
+                line-height: 1.5;
             }
             
             .cta-button {
                 display: inline-block;
                 background: #1F3B4D;
                 color: white;
-                padding: 18px 50px;
+                padding: 12px 35px;
                 border-radius: 50px;
-                font-size: 1.2rem;
+                font-size: 1rem;
                 font-weight: 600;
                 text-decoration: none;
                 transition: all 0.3s;
@@ -1247,27 +1246,27 @@ app.get('/vendas/apresentacao', (c) => {
             }
             
             .cta-button:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 25px rgba(31, 59, 77, 0.4);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(31, 59, 77, 0.4);
             }
             
             .slide-navigation {
                 position: fixed;
-                bottom: 40px;
-                right: 40px;
+                bottom: 20px;
+                right: 20px;
                 display: flex;
-                gap: 16px;
+                gap: 12px;
                 z-index: 1000;
             }
             
             .nav-button {
-                width: 60px;
-                height: 60px;
+                width: 50px;
+                height: 50px;
                 border-radius: 50%;
                 background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
                 color: white;
                 border: none;
-                font-size: 1.5rem;
+                font-size: 1.2rem;
                 cursor: pointer;
                 transition: all 0.3s;
                 box-shadow: 0 4px 15px rgba(201, 165, 109, 0.4);
@@ -1284,16 +1283,17 @@ app.get('/vendas/apresentacao', (c) => {
             
             .exit-button {
                 position: fixed;
-                top: 30px;
-                right: 30px;
+                top: 20px;
+                right: 20px;
                 background: rgba(255, 255, 255, 0.1);
                 color: white;
                 border: 2px solid rgba(255, 255, 255, 0.3);
-                padding: 12px 24px;
+                padding: 10px 20px;
                 border-radius: 50px;
-                font-size: 1rem;
+                font-size: 0.9rem;
                 cursor: pointer;
                 transition: all 0.3s;
+                z-index: 1001;
             }
             
             .exit-button:hover {
@@ -1301,11 +1301,37 @@ app.get('/vendas/apresentacao', (c) => {
             }
             
             @media (max-width: 1024px) {
-                .slide-content { padding: 40px; }
-                .two-columns { grid-template-columns: 1fr; gap: 40px; }
-                .stats-section { grid-template-columns: 1fr; }
-                .logo-section .company-name { font-size: 2rem; }
-                .logo-section .tagline { font-size: 1.1rem; }
+                .slide-content { padding: 25px 40px 80px; }
+                .two-columns { grid-template-columns: 1fr; gap: 20px; }
+                .photo-column { text-align: center; }
+                .photo-column img { max-width: 280px; }
+                .stats-section { grid-template-columns: 1fr; gap: 15px; }
+                .logo-section .company-name { font-size: 1.5rem; }
+                .logo-section .tagline { font-size: 0.9rem; }
+                .text-column { font-size: 0.85rem; }
+                .cta-section h2 { font-size: 1.2rem; }
+                .cta-section p { font-size: 0.85rem; }
+                .cta-button { padding: 10px 25px; font-size: 0.9rem; }
+            }
+            
+            @media (max-height: 700px) {
+                .slide-content { padding: 20px 50px 70px; }
+                .premium-badge { padding: 6px 25px; font-size: 0.85rem; margin-bottom: 15px; }
+                .logo-section { margin-bottom: 15px; }
+                .logo-section img { height: 40px; }
+                .logo-section .company-name { font-size: 1.5rem; }
+                .logo-section .tagline { font-size: 0.85rem; }
+                .two-columns { gap: 20px; margin-bottom: 15px; }
+                .text-column { font-size: 0.85rem; line-height: 1.5; }
+                .text-column p { margin-bottom: 8px; }
+                .stats-section { margin-bottom: 15px; gap: 15px; }
+                .stat-card { padding: 12px; }
+                .stat-card .number { font-size: 1.4rem; }
+                .stat-card .label { font-size: 0.8rem; }
+                .cta-section { padding: 18px 30px; }
+                .cta-section h2 { font-size: 1.2rem; margin-bottom: 8px; }
+                .cta-section p { font-size: 0.85rem; margin-bottom: 12px; }
+                .cta-button { padding: 10px 30px; font-size: 0.9rem; }
             }
         </style>
     </head>
