@@ -1107,30 +1107,36 @@ app.get('/vendas/apresentacao', (c) => {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
-                padding: 30px 60px 80px;
+                justify-content: center;
+                padding: 15px 40px 80px;
                 overflow: hidden;
+                max-width: 1400px;
+                margin: 0 auto;
+                width: 100%;
+                height: 100vh;
             }
             
             .premium-badge {
                 display: inline-block;
                 background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
                 color: white;
-                padding: 8px 30px;
+                padding: 6px 24px;
                 border-radius: 50px;
-                font-size: 0.95rem;
-                font-weight: 600;
+                font-size: 0.75rem;
+                font-weight: 500;
                 text-align: center;
-                margin: 0 auto 20px;
-                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.3);
+                margin: 0 auto 10px;
+                box-shadow: 0 3px 12px rgba(201, 165, 109, 0.3);
             }
             
             .logo-section {
                 text-align: center;
-                margin-bottom: 25px;
+                margin-bottom: 18px;
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 align-items: center;
-                gap: 8px;
+                justify-content: center;
+                gap: 12px;
             }
             
             .logo-section img {
@@ -1138,130 +1144,144 @@ app.get('/vendas/apresentacao', (c) => {
                 width: auto;
             }
             
+            .logo-section .brand-text {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+            
             .logo-section .company-name {
                 font-family: 'Playfair Display', serif;
-                font-size: 2rem;
+                font-size: 1.8rem;
                 font-weight: 700;
                 color: #C9A56D;
                 letter-spacing: 0.15em;
+                line-height: 1;
             }
             
             .logo-section .tagline {
-                font-size: 1rem;
+                font-size: 0.75rem;
                 color: #F6F7F8;
                 font-weight: 300;
+                line-height: 1.2;
             }
             
             .two-columns {
                 display: grid;
-                grid-template-columns: 0.9fr 1.1fr;
+                grid-template-columns: 280px 1fr;
                 gap: 30px;
-                margin-bottom: 25px;
-                align-items: center;
-                flex: 1;
+                margin-bottom: 18px;
+                align-items: flex-start;
             }
             
             .photo-column img {
                 width: 100%;
-                max-width: 350px;
-                border-radius: 16px;
-                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+                max-width: 280px;
+                border-radius: 10px;
+                box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
             }
             
             .text-column {
                 color: #F6F7F8;
-                font-size: 0.95rem;
-                line-height: 1.7;
+                font-size: 0.8rem;
+                line-height: 1.5;
                 font-weight: 300;
             }
             
             .text-column p {
-                margin-bottom: 12px;
+                margin-bottom: 8px;
             }
             
             .text-column strong {
                 color: #C9A56D;
-                font-weight: 600;
+                font-weight: 500;
             }
             
             .stats-section {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 25px;
-                margin-bottom: 20px;
+                gap: 15px;
+                margin-bottom: 18px;
             }
             
             .stat-card {
-                background: rgba(201, 165, 109, 0.1);
-                border: 2px solid #C9A56D;
-                border-radius: 12px;
-                padding: 18px;
+                background: transparent;
+                border: 1.5px solid rgba(201, 165, 109, 0.6);
+                border-radius: 10px;
+                padding: 12px 20px;
                 text-align: center;
             }
             
             .stat-card .number {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
                 font-weight: 700;
                 color: #C9A56D;
                 margin-bottom: 4px;
+                line-height: 1;
             }
             
             .stat-card .label {
                 color: #F6F7F8;
-                font-size: 0.9rem;
+                font-size: 0.75rem;
+                font-weight: 300;
+                line-height: 1.2;
             }
             
             .cta-section {
                 background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
-                border-radius: 16px;
-                padding: 25px 35px;
+                border-radius: 12px;
+                padding: 20px 30px;
                 text-align: center;
             }
             
             .cta-section h2 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 font-weight: 700;
                 color: #1F3B4D;
-                margin-bottom: 10px;
+                margin-bottom: 8px;
+                line-height: 1.2;
             }
             
             .cta-section p {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
                 color: #2A2A2A;
-                margin-bottom: 18px;
-                line-height: 1.5;
+                margin-bottom: 15px;
+                line-height: 1.4;
             }
             
             .cta-button {
-                display: inline-block;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
                 background: #1F3B4D;
                 color: white;
-                padding: 12px 35px;
+                padding: 12px 30px;
                 border-radius: 50px;
-                font-size: 1rem;
-                font-weight: 600;
+                font-size: 0.9rem;
+                font-weight: 500;
                 text-decoration: none;
                 transition: all 0.3s;
-                box-shadow: 0 4px 15px rgba(31, 59, 77, 0.3);
+                box-shadow: 0 3px 12px rgba(31, 59, 77, 0.3);
             }
             
             .cta-button:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(31, 59, 77, 0.4);
+                box-shadow: 0 5px 16px rgba(31, 59, 77, 0.4);
             }
             
             .slide-navigation {
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
-                display: flex;
-                gap: 12px;
                 z-index: 1000;
+                display: flex;
+                gap: 10px;
             }
             
             .nav-button {
-                width: 50px;
-                height: 50px;
+                width: 45px;
+                height: 45px;
                 border-radius: 50%;
                 background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
                 color: white;
@@ -1269,11 +1289,15 @@ app.get('/vendas/apresentacao', (c) => {
                 font-size: 1.2rem;
                 cursor: pointer;
                 transition: all 0.3s;
-                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.4);
+                box-shadow: 0 3px 12px rgba(201, 165, 109, 0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             
             .nav-button:hover {
                 transform: scale(1.1);
+                box-shadow: 0 5px 16px rgba(201, 165, 109, 0.5);
             }
             
             .nav-button:disabled {
@@ -1281,57 +1305,109 @@ app.get('/vendas/apresentacao', (c) => {
                 cursor: not-allowed;
             }
             
+            .nav-button:disabled:hover {
+                transform: none;
+            }
+            
             .exit-button {
                 position: fixed;
-                top: 20px;
-                right: 20px;
-                background: rgba(255, 255, 255, 0.1);
+                top: 15px;
+                right: 15px;
+                background: rgba(255, 255, 255, 0.08);
                 color: white;
-                border: 2px solid rgba(255, 255, 255, 0.3);
-                padding: 10px 20px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 8px 16px;
                 border-radius: 50px;
-                font-size: 0.9rem;
+                font-size: 0.75rem;
                 cursor: pointer;
                 transition: all 0.3s;
                 z-index: 1001;
+                display: flex;
+                align-items: center;
+                gap: 6px;
             }
             
             .exit-button:hover {
-                background: rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.15);
             }
             
+            /* Responsivo para telas médias */
+            @media (max-width: 1200px) {
+                .two-columns { 
+                    grid-template-columns: 260px 1fr;
+                    gap: 25px;
+                }
+                .photo-column img { max-width: 260px; }
+                .text-column { font-size: 0.75rem; }
+            }
+            
+            /* Responsivo para tablets */
             @media (max-width: 1024px) {
-                .slide-content { padding: 25px 40px 80px; }
-                .two-columns { grid-template-columns: 1fr; gap: 20px; }
+                .slide-content { padding: 15px 30px 70px; }
+                .two-columns { 
+                    grid-template-columns: 1fr; 
+                    gap: 15px;
+                    margin-bottom: 15px;
+                }
                 .photo-column { text-align: center; }
-                .photo-column img { max-width: 280px; }
-                .stats-section { grid-template-columns: 1fr; gap: 15px; }
+                .photo-column img { max-width: 240px; }
+                .stats-section { gap: 12px; margin-bottom: 15px; }
                 .logo-section .company-name { font-size: 1.5rem; }
-                .logo-section .tagline { font-size: 0.9rem; }
-                .text-column { font-size: 0.85rem; }
-                .cta-section h2 { font-size: 1.2rem; }
-                .cta-section p { font-size: 0.85rem; }
-                .cta-button { padding: 10px 25px; font-size: 0.9rem; }
+                .logo-section .tagline { font-size: 0.7rem; }
+                .text-column { font-size: 0.75rem; }
+                .cta-section { padding: 16px 25px; }
+                .cta-section h2 { font-size: 1.1rem; }
+                .cta-section p { font-size: 0.75rem; margin-bottom: 12px; }
+                .cta-button { padding: 10px 24px; font-size: 0.85rem; }
             }
             
-            @media (max-height: 700px) {
-                .slide-content { padding: 20px 50px 70px; }
-                .premium-badge { padding: 6px 25px; font-size: 0.85rem; margin-bottom: 15px; }
-                .logo-section { margin-bottom: 15px; }
+            /* Responsivo para mobile */
+            @media (max-width: 768px) {
+                .slide-content { padding: 12px 20px 60px; }
+                .premium-badge { padding: 5px 20px; font-size: 0.7rem; margin-bottom: 8px; }
+                .logo-section { 
+                    flex-direction: column;
+                    gap: 6px;
+                    margin-bottom: 12px;
+                }
                 .logo-section img { height: 40px; }
+                .logo-section .brand-text { align-items: center; }
+                .logo-section .company-name { font-size: 1.3rem; }
+                .logo-section .tagline { font-size: 0.65rem; text-align: center; }
+                .photo-column img { max-width: 200px; }
+                .text-column { font-size: 0.7rem; }
+                .text-column p { margin-bottom: 6px; }
+                .stats-section { gap: 10px; margin-bottom: 12px; }
+                .stat-card { padding: 10px 15px; }
+                .stat-card .number { font-size: 1.3rem; }
+                .stat-card .label { font-size: 0.7rem; }
+                .cta-section { padding: 14px 20px; }
+                .cta-section h2 { font-size: 1rem; margin-bottom: 6px; }
+                .cta-section p { font-size: 0.7rem; margin-bottom: 10px; }
+                .cta-button { padding: 8px 20px; font-size: 0.75rem; gap: 6px; }
+                .nav-button { width: 40px; height: 40px; font-size: 1rem; }
+                .exit-button { padding: 6px 12px; font-size: 0.7rem; }
+            }
+            
+            /* Responsivo para altura baixa */
+            @media (max-height: 750px) {
+                .slide-content { padding: 10px 40px 70px; }
+                .premium-badge { padding: 5px 20px; font-size: 0.7rem; margin-bottom: 8px; }
+                .logo-section { margin-bottom: 12px; gap: 10px; }
+                .logo-section img { height: 42px; }
                 .logo-section .company-name { font-size: 1.5rem; }
-                .logo-section .tagline { font-size: 0.85rem; }
-                .two-columns { gap: 20px; margin-bottom: 15px; }
-                .text-column { font-size: 0.85rem; line-height: 1.5; }
-                .text-column p { margin-bottom: 8px; }
-                .stats-section { margin-bottom: 15px; gap: 15px; }
-                .stat-card { padding: 12px; }
-                .stat-card .number { font-size: 1.4rem; }
-                .stat-card .label { font-size: 0.8rem; }
-                .cta-section { padding: 18px 30px; }
-                .cta-section h2 { font-size: 1.2rem; margin-bottom: 8px; }
-                .cta-section p { font-size: 0.85rem; margin-bottom: 12px; }
-                .cta-button { padding: 10px 30px; font-size: 0.9rem; }
+                .logo-section .tagline { font-size: 0.7rem; }
+                .two-columns { gap: 20px; margin-bottom: 12px; }
+                .text-column { font-size: 0.75rem; line-height: 1.4; }
+                .text-column p { margin-bottom: 6px; }
+                .stats-section { margin-bottom: 12px; gap: 12px; }
+                .stat-card { padding: 10px 16px; }
+                .stat-card .number { font-size: 1.3rem; }
+                .stat-card .label { font-size: 0.7rem; }
+                .cta-section { padding: 15px 25px; }
+                .cta-section h2 { font-size: 1.1rem; margin-bottom: 6px; }
+                .cta-section p { font-size: 0.75rem; margin-bottom: 10px; }
+                .cta-button { padding: 10px 24px; font-size: 0.85rem; }
             }
         </style>
     </head>
@@ -1350,8 +1426,10 @@ app.get('/vendas/apresentacao', (c) => {
                 <!-- Logo e Nome -->
                 <div class="logo-section">
                     <img src="/static/logo-structa.png" alt="Structa">
-                    <div class="company-name">STRUCTA</div>
-                    <div class="tagline">Engenharia Patrimonial de Alta Performance para médicos.</div>
+                    <div class="brand-text">
+                        <div class="company-name">STRUCTA</div>
+                        <div class="tagline">Engenharia Patrimonial de Alta Performance para médicos.</div>
+                    </div>
                 </div>
                 
                 <!-- Duas Colunas -->
