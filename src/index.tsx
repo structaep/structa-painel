@@ -1169,15 +1169,20 @@ app.get('/vendas/apresentacao', (c) => {
             
             .three-columns {
                 display: grid;
-                grid-template-columns: 240px 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
                 gap: 25px;
                 margin-bottom: 18px;
                 align-items: flex-start;
             }
             
+            .photo-column {
+                display: flex;
+                justify-content: center;
+            }
+            
             .photo-column img {
                 width: 100%;
-                max-width: 240px;
+                max-width: 100%;
                 border-radius: 10px;
                 box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
             }
@@ -1191,6 +1196,7 @@ app.get('/vendas/apresentacao', (c) => {
             
             .text-column p {
                 margin-bottom: 8px;
+                text-align: justify;
             }
             
             .text-column strong {
@@ -1230,6 +1236,7 @@ app.get('/vendas/apresentacao', (c) => {
             
             .info-column p {
                 margin-bottom: 8px;
+                text-align: justify;
             }
             
             .stats-section {
@@ -1368,10 +1375,9 @@ app.get('/vendas/apresentacao', (c) => {
             /* Responsivo para telas médias */
             @media (max-width: 1200px) {
                 .three-columns { 
-                    grid-template-columns: 220px 1fr 1fr;
+                    grid-template-columns: 1fr 1fr 1fr;
                     gap: 20px;
                 }
-                .photo-column img { max-width: 220px; }
                 .text-column { font-size: 0.7rem; }
                 .info-column { font-size: 0.7rem; }
                 .info-column h3 { font-size: 1rem; }
