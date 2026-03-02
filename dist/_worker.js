@@ -996,7 +996,7 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
             }
             
             .logo-section img {
-                height: 50px;
+                height: 65px;
                 width: auto;
             }
             
@@ -1004,12 +1004,12 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 2px;
+                gap: 3px;
             }
             
             .logo-section .company-name {
                 font-family: 'Playfair Display', serif;
-                font-size: 1.8rem;
+                font-size: 2.4rem;
                 font-weight: 700;
                 color: #C9A56D;
                 letter-spacing: 0.15em;
@@ -1017,16 +1017,16 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
             }
             
             .logo-section .tagline {
-                font-size: 0.75rem;
+                font-size: 0.85rem;
                 color: #F6F7F8;
                 font-weight: 300;
                 line-height: 1.2;
             }
             
-            .three-columns {
+            .two-columns {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-                gap: 25px;
+                grid-template-columns: 320px 1fr;
+                gap: 30px;
                 margin-bottom: 18px;
                 align-items: flex-start;
             }
@@ -1043,31 +1043,14 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
                 box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
             }
             
-            .text-column {
+            .combined-text-column {
                 color: #F6F7F8;
                 font-size: 0.75rem;
                 line-height: 1.5;
                 font-weight: 300;
             }
             
-            .text-column p {
-                margin-bottom: 8px;
-                text-align: justify;
-            }
-            
-            .text-column strong {
-                color: #C9A56D;
-                font-weight: 500;
-            }
-            
-            .info-column {
-                color: #F6F7F8;
-                font-size: 0.75rem;
-                line-height: 1.5;
-                font-weight: 300;
-            }
-            
-            .info-column h3 {
+            .combined-text-column h3 {
                 font-family: 'Playfair Display', serif;
                 font-size: 1.1rem;
                 color: #C9A56D;
@@ -1076,23 +1059,35 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
                 line-height: 1.3;
             }
             
-            .info-column .subtitle {
+            .combined-text-column .subtitle {
                 font-size: 0.7rem;
                 color: #F6F7F8;
                 margin-bottom: 3px;
                 line-height: 1.3;
             }
             
-            .info-column .credentials {
+            .combined-text-column .credentials {
                 font-size: 0.65rem;
                 color: rgba(246, 247, 248, 0.7);
                 margin-bottom: 10px;
                 line-height: 1.2;
             }
             
-            .info-column p {
+            .combined-text-column p {
                 margin-bottom: 8px;
                 text-align: justify;
+            }
+            
+            .combined-text-column strong {
+                color: #C9A56D;
+                font-weight: 500;
+            }
+            
+            .combined-text-column .divider {
+                width: 100%;
+                height: 1px;
+                background: linear-gradient(to right, transparent, rgba(201, 165, 109, 0.3), transparent);
+                margin: 12px 0;
             }
             
             .stats-section {
@@ -1230,31 +1225,33 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
             
             /* Responsivo para telas médias */
             @media (max-width: 1200px) {
-                .three-columns { 
-                    grid-template-columns: 1fr 1fr 1fr;
-                    gap: 20px;
+                .two-columns { 
+                    grid-template-columns: 280px 1fr;
+                    gap: 25px;
                 }
-                .text-column { font-size: 0.7rem; }
-                .info-column { font-size: 0.7rem; }
-                .info-column h3 { font-size: 1rem; }
+                .combined-text-column { font-size: 0.7rem; }
+                .combined-text-column h3 { font-size: 1rem; }
+                .logo-section img { height: 55px; }
+                .logo-section .company-name { font-size: 2rem; }
+                .logo-section .tagline { font-size: 0.8rem; }
             }
             
             /* Responsivo para tablets */
             @media (max-width: 1024px) {
                 .slide-content { padding: 15px 30px 70px; }
-                .three-columns { 
+                .two-columns { 
                     grid-template-columns: 1fr; 
                     gap: 15px;
                     margin-bottom: 15px;
                 }
                 .photo-column { text-align: center; }
-                .photo-column img { max-width: 200px; }
+                .photo-column img { max-width: 260px; }
                 .stats-section { gap: 12px; margin-bottom: 15px; }
-                .logo-section .company-name { font-size: 1.5rem; }
-                .logo-section .tagline { font-size: 0.7rem; }
-                .text-column { font-size: 0.7rem; }
-                .info-column { font-size: 0.7rem; }
-                .info-column h3 { font-size: 0.95rem; }
+                .logo-section img { height: 50px; }
+                .logo-section .company-name { font-size: 1.6rem; }
+                .logo-section .tagline { font-size: 0.75rem; }
+                .combined-text-column { font-size: 0.7rem; }
+                .combined-text-column h3 { font-size: 0.95rem; }
                 .cta-section { padding: 16px 25px; }
                 .cta-section h2 { font-size: 1.1rem; }
                 .cta-section p { font-size: 0.75rem; margin-bottom: 12px; }
@@ -1270,17 +1267,17 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
                     gap: 6px;
                     margin-bottom: 12px;
                 }
-                .logo-section img { height: 40px; }
+                .logo-section img { height: 45px; }
                 .logo-section .brand-text { align-items: center; }
-                .logo-section .company-name { font-size: 1.3rem; }
-                .logo-section .tagline { font-size: 0.65rem; text-align: center; }
-                .photo-column img { max-width: 180px; }
-                .text-column { font-size: 0.65rem; }
-                .text-column p { margin-bottom: 6px; }
-                .info-column { font-size: 0.65rem; }
-                .info-column h3 { font-size: 0.9rem; margin-bottom: 3px; }
-                .info-column .subtitle { font-size: 0.65rem; }
-                .info-column .credentials { font-size: 0.6rem; margin-bottom: 6px; }
+                .logo-section .company-name { font-size: 1.4rem; }
+                .logo-section .tagline { font-size: 0.7rem; text-align: center; }
+                .photo-column img { max-width: 200px; }
+                .combined-text-column { font-size: 0.65rem; }
+                .combined-text-column p { margin-bottom: 6px; }
+                .combined-text-column h3 { font-size: 0.9rem; margin-bottom: 3px; }
+                .combined-text-column .subtitle { font-size: 0.65rem; }
+                .combined-text-column .credentials { font-size: 0.6rem; margin-bottom: 6px; }
+                .combined-text-column .divider { margin: 8px 0; }
                 .stats-section { gap: 10px; margin-bottom: 12px; }
                 .stat-card { padding: 10px 15px; }
                 .stat-card .number { font-size: 1.3rem; }
@@ -1298,15 +1295,14 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
                 .slide-content { padding: 10px 40px 70px; }
                 .premium-badge { padding: 5px 20px; font-size: 0.7rem; margin-bottom: 8px; }
                 .logo-section { margin-bottom: 12px; gap: 10px; }
-                .logo-section img { height: 42px; }
-                .logo-section .company-name { font-size: 1.5rem; }
-                .logo-section .tagline { font-size: 0.7rem; }
-                .three-columns { gap: 18px; margin-bottom: 12px; }
-                .text-column { font-size: 0.7rem; line-height: 1.4; }
-                .text-column p { margin-bottom: 6px; }
-                .info-column { font-size: 0.7rem; line-height: 1.4; }
-                .info-column h3 { font-size: 0.95rem; }
-                .info-column p { margin-bottom: 6px; }
+                .logo-section img { height: 55px; }
+                .logo-section .company-name { font-size: 2rem; }
+                .logo-section .tagline { font-size: 0.75rem; }
+                .two-columns { gap: 20px; margin-bottom: 12px; }
+                .combined-text-column { font-size: 0.7rem; line-height: 1.4; }
+                .combined-text-column p { margin-bottom: 6px; }
+                .combined-text-column h3 { font-size: 0.95rem; }
+                .combined-text-column .divider { margin: 8px 0; }
                 .stats-section { margin-bottom: 12px; gap: 12px; }
                 .stat-card { padding: 10px 16px; }
                 .stat-card .number { font-size: 1.3rem; }
@@ -1339,18 +1335,19 @@ var Ma=Object.defineProperty;var dn=e=>{throw TypeError(e)};var za=(e,t,r)=>t in
                     </div>
                 </div>
                 
-                <!-- Três Colunas -->
-                <div class="three-columns">
+                <!-- Duas Colunas: Foto + Textos Combinados -->
+                <div class="two-columns">
                     <div class="photo-column">
                         <img src="/static/medico-foto.jpg" alt="Dr. Patrese Luiz Castro Alves">
                     </div>
-                    <div class="info-column">
+                    <div class="combined-text-column">
                         <h3>Dr. Patrese Luiz Castro Alves</h3>
                         <div class="subtitle">Médico ultrassonografista há mais de 12 anos.</div>
                         <div class="credentials">CRM/SP 160.340 • RQE 98.523</div>
                         <p>Sou médico por vocação, ultrassonografista por especialização e, acima de tudo, alguém que sempre acreditou que a medicina deve oferecer <strong>dignidade, estabilidade e propósito.</strong></p>
-                    </div>
-                    <div class="text-column">
+                        
+                        <div class="divider"></div>
+                        
                         <p>Quando vi que funcionava, percebi algo importante:</p>
                         <p><strong>Muitos médicos vivem exatamente o que eu vivi.</strong><br>
                         Trabalham muito. Constroem pouco.<br>
