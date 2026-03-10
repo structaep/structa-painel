@@ -1540,12 +1540,494 @@ app.get('/vendas/apresentacao', (c) => {
         
         <script>
             function nextSlide() {
-                alert('Próximo slide será implementado! Por enquanto, este é o slide 1.');
-                // window.location.href = '/vendas/apresentacao/slide2';
+                window.location.href = '/vendas/apresentacao/slide2';
             }
             
             function previousSlide() {
-                // window.location.href = '/vendas/apresentacao';
+                // Slide 1 não tem slide anterior
+            }
+            
+            // Navegação por teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+                if (e.key === 'ArrowLeft') previousSlide();
+                if (e.key === 'Escape') window.location.href = '/vendas';
+            });
+        </script>
+    </body>
+    </html>
+  `)
+})
+
+// ========== APRESENTAÇÃO INTERATIVA (SLIDE 2) ==========
+
+app.get('/vendas/apresentacao/slide2', (c) => {
+  return c.html(`
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slide 2 - Presença Nacional | Structa</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: 'Poppins', sans-serif;
+                background: #1F3B4D;
+                overflow: hidden;
+            }
+            
+            .slide-container {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .slide-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 15px 40px 80px;
+                overflow-y: auto;
+                max-width: 1400px;
+                margin: 0 auto;
+                width: 100%;
+            }
+            
+            .premium-badge {
+                display: inline-block;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                color: white;
+                padding: 6px 24px;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                font-weight: 500;
+                text-align: center;
+                margin: 0 auto 12px;
+                box-shadow: 0 3px 12px rgba(201, 165, 109, 0.3);
+            }
+            
+            .main-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 2rem;
+                font-weight: 700;
+                color: #C9A56D;
+                text-align: center;
+                margin-bottom: 10px;
+                line-height: 1.2;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+                color: #F6F7F8;
+                text-align: center;
+                margin-bottom: 15px;
+                line-height: 1.5;
+                max-width: 900px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .divider {
+                width: 100%;
+                max-width: 800px;
+                height: 1px;
+                background: linear-gradient(to right, transparent, rgba(201, 165, 109, 0.4), transparent);
+                margin: 15px auto;
+            }
+            
+            .cities-container {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(201, 165, 109, 0.2);
+                border-radius: 12px;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .cities-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.3rem;
+                color: #C9A56D;
+                text-align: center;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+            
+            .cities-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+                margin-bottom: 10px;
+            }
+            
+            .city-card {
+                background: rgba(246, 247, 248, 0.08);
+                border: 1px solid rgba(201, 165, 109, 0.15);
+                border-radius: 8px;
+                padding: 12px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.3s;
+            }
+            
+            .city-card:hover {
+                background: rgba(201, 165, 109, 0.1);
+                border-color: rgba(201, 165, 109, 0.3);
+                transform: translateY(-2px);
+            }
+            
+            .city-card i {
+                color: #C9A56D;
+                font-size: 0.9rem;
+            }
+            
+            .city-info {
+                flex: 1;
+            }
+            
+            .city-name {
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: #F6F7F8;
+                margin-bottom: 2px;
+            }
+            
+            .city-region {
+                font-size: 0.65rem;
+                color: rgba(246, 247, 248, 0.7);
+            }
+            
+            .benefits-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .benefit-card {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(201, 165, 109, 0.2);
+                border-radius: 12px;
+                padding: 20px;
+                text-align: center;
+                transition: all 0.3s;
+            }
+            
+            .benefit-card:hover {
+                background: rgba(201, 165, 109, 0.08);
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(201, 165, 109, 0.15);
+            }
+            
+            .benefit-icon {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 12px;
+                font-size: 1.5rem;
+                color: white;
+            }
+            
+            .benefit-title {
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: #C9A56D;
+                margin-bottom: 6px;
+                line-height: 1.3;
+            }
+            
+            .benefit-text {
+                font-size: 0.7rem;
+                color: rgba(246, 247, 248, 0.8);
+                line-height: 1.4;
+            }
+            
+            .navigation-buttons {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
+                margin-top: 15px;
+            }
+            
+            .nav-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 12px 30px;
+                border-radius: 50px;
+                font-size: 0.85rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s;
+                border: none;
+                text-decoration: none;
+            }
+            
+            .nav-btn-back {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .nav-btn-back:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+            
+            .nav-btn-next {
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                color: white;
+                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.3);
+            }
+            
+            .nav-btn-next:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(201, 165, 109, 0.4);
+            }
+            
+            .exit-button {
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                background: rgba(255, 255, 255, 0.08);
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 8px 16px;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                z-index: 1001;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            
+            .exit-button:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+            
+            /* Responsivo */
+            @media (max-width: 1024px) {
+                .slide-content { padding: 15px 30px 70px; }
+                .main-title { font-size: 1.6rem; }
+                .subtitle { font-size: 0.85rem; }
+                .cities-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+                .benefits-grid { grid-template-columns: 1fr; gap: 15px; }
+            }
+            
+            @media (max-width: 768px) {
+                .slide-content { padding: 12px 20px 60px; }
+                .premium-badge { padding: 5px 20px; font-size: 0.7rem; }
+                .main-title { font-size: 1.3rem; }
+                .subtitle { font-size: 0.75rem; }
+                .cities-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+                .city-card { padding: 10px; }
+                .city-name { font-size: 0.75rem; }
+                .city-region { font-size: 0.6rem; }
+                .benefit-icon { width: 50px; height: 50px; font-size: 1.2rem; }
+                .benefit-title { font-size: 0.8rem; }
+                .benefit-text { font-size: 0.65rem; }
+                .nav-btn { padding: 10px 20px; font-size: 0.75rem; }
+            }
+            
+            @media (max-height: 750px) {
+                .slide-content { padding: 10px 30px 60px; }
+                .premium-badge { margin-bottom: 8px; }
+                .main-title { font-size: 1.5rem; margin-bottom: 8px; }
+                .subtitle { font-size: 0.8rem; margin-bottom: 12px; }
+                .divider { margin: 12px auto; }
+                .cities-container { padding: 15px; margin-bottom: 15px; }
+                .cities-title { font-size: 1.1rem; margin-bottom: 12px; }
+                .benefit-card { padding: 15px; }
+                .benefit-icon { width: 50px; height: 50px; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <button class="exit-button" onclick="window.location.href='/vendas'">
+                <i class="fas fa-times"></i> Sair da Apresentação
+            </button>
+            
+            <div class="slide-content">
+                <!-- Badge -->
+                <div style="text-align: center;">
+                    <div class="premium-badge">Presença Nacional</div>
+                </div>
+                
+                <!-- Título -->
+                <h1 class="main-title">Onde estamos mudando o jogo no mercado imobiliário</h1>
+                
+                <!-- Subtítulo -->
+                <p class="subtitle">Atuamos em mais de 14 estados e já ajudamos milhares de brasileiros a conquistar seus imóveis com inteligência financeira.</p>
+                
+                <!-- Divisor -->
+                <div class="divider"></div>
+                
+                <!-- Container de Cidades -->
+                <div class="cities-container">
+                    <h2 class="cities-title">Os melhores investimentos imobiliários em todo o Brasil</h2>
+                    
+                    <div class="cities-grid">
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">São Paulo</div>
+                                <div class="city-region">Sudeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Rio de Janeiro</div>
+                                <div class="city-region">Sudeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Minas Gerais</div>
+                                <div class="city-region">Sudeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Distrito Federal</div>
+                                <div class="city-region">Centro-Oeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Goiás</div>
+                                <div class="city-region">Centro-Oeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Paraná</div>
+                                <div class="city-region">Sul</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Santa Catarina</div>
+                                <div class="city-region">Sul</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Rio Grande do Sul</div>
+                                <div class="city-region">Sul</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Bahia</div>
+                                <div class="city-region">Nordeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Ceará</div>
+                                <div class="city-region">Nordeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Paraíba</div>
+                                <div class="city-region">Nordeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Rio Grande do Norte</div>
+                                <div class="city-region">Nordeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Pernambuco</div>
+                                <div class="city-region">Nordeste</div>
+                            </div>
+                        </div>
+                        <div class="city-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="city-info">
+                                <div class="city-name">Alagoas</div>
+                                <div class="city-region">Nordeste</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Benefícios -->
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="benefit-title">Presença em mais de 14 estados brasileiros</div>
+                        <div class="benefit-text">Cobertura nacional estratégica</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="benefit-title">Suporte completo na locação</div>
+                        <div class="benefit-text">Gestão end-to-end dos seus investimentos</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="benefit-title">Oportunidades selecionadas</div>
+                        <div class="benefit-text">Os melhores investimentos em cada região</div>
+                    </div>
+                </div>
+                
+                <!-- Navegação -->
+                <div class="navigation-buttons">
+                    <button class="nav-btn nav-btn-back" onclick="previousSlide()">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </button>
+                    <button class="nav-btn nav-btn-next" onclick="nextSlide()">
+                        O que estão falando sobre nós <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            function nextSlide() {
+                alert('Próximo slide será implementado! Por enquanto, este é o slide 2.');
+                // window.location.href = '/vendas/apresentacao/slide3';
+            }
+            
+            function previousSlide() {
+                window.location.href = '/vendas/apresentacao';
             }
             
             // Navegação por teclado
