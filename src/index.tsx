@@ -2041,7 +2041,7 @@ app.get('/vendas/apresentacao/slide2', (c) => {
   `)
 })
 
-// ========== APRESENTAÇÃO INTERATIVA (SLIDE 3 - METODOLOGIA) ==========
+// ========== APRESENTAÇÃO INTERATIVA (SLIDE 3 - NOSSA METODOLOGIA) ==========
 
 app.get('/vendas/apresentacao/slide3', (c) => {
   return c.html(`
@@ -2058,7 +2058,7 @@ app.get('/vendas/apresentacao/slide3', (c) => {
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body {
                 font-family: 'Poppins', sans-serif;
-                background: #1F3B4D;
+                background: #F6F7F8;
                 overflow: hidden;
             }
             
@@ -2069,6 +2069,7 @@ app.get('/vendas/apresentacao/slide3', (c) => {
                 flex-direction: column;
                 position: relative;
                 overflow: hidden;
+                background: #F6F7F8;
             }
             
             .slide-content {
@@ -2076,52 +2077,260 @@ app.get('/vendas/apresentacao/slide3', (c) => {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: center;
                 padding: 20px 40px 100px;
-                overflow: hidden;
+                overflow-y: auto;
                 max-width: 1200px;
                 margin: 0 auto;
                 width: 100%;
             }
             
-            .methodology-image-container {
-                width: 100%;
-                max-width: 1000px;
-                height: auto;
-                display: flex;
-                justify-content: center;
+            .methodology-badge {
+                display: inline-flex;
                 align-items: center;
-                transition: opacity 0.5s ease;
+                gap: 8px;
+                background: rgba(201, 165, 109, 0.1);
+                color: #C9A56D;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                font-weight: 500;
+                margin: 0 auto 15px;
+                border: 1px solid rgba(201, 165, 109, 0.3);
             }
             
-            .methodology-image {
-                max-width: 100%;
-                max-height: 70vh;
-                width: auto;
-                height: auto;
-                object-fit: contain;
-                border-radius: 16px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            .main-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 2.2rem;
+                font-weight: 700;
+                color: #365C73;
+                text-align: center;
+                margin-bottom: 8px;
+                line-height: 1.2;
             }
             
-            .phase-indicator {
-                display: flex;
-                gap: 12px;
-                margin-bottom: 30px;
+            .subtitle {
+                font-size: 1rem;
+                color: #C9A56D;
+                text-align: center;
+                font-weight: 600;
+                margin-bottom: 8px;
             }
             
-            .phase-dot {
+            .description {
+                font-size: 0.85rem;
+                color: #666;
+                text-align: center;
+                margin-bottom: 20px;
+                line-height: 1.5;
+            }
+            
+            .progress-indicator {
+                width: 100%;
+                height: 1px;
+                background: #E0E0E0;
+                margin: 20px 0;
+                position: relative;
+            }
+            
+            .progress-dot {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
                 width: 12px;
                 height: 12px;
+                background: #C9A56D;
                 border-radius: 50%;
-                background: rgba(201, 165, 109, 0.3);
                 transition: all 0.3s;
             }
             
-            .phase-dot.active {
+            .timeline-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 30px;
+                position: relative;
+            }
+            
+            .timeline-line {
+                position: absolute;
+                top: 20px;
+                left: 60px;
+                right: 60px;
+                height: 2px;
+                background: #E0E0E0;
+                z-index: 0;
+            }
+            
+            .timeline-progress {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
                 background: #C9A56D;
-                width: 36px;
-                border-radius: 6px;
+                transition: width 0.5s ease;
+            }
+            
+            .timeline-step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 1;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+            
+            .timeline-circle {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: #E8E8E8;
+                color: #999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+                transition: all 0.3s;
+                border: 3px solid transparent;
+            }
+            
+            .timeline-step.active .timeline-circle {
+                background: #C9A56D;
+                color: white;
+                border-color: #C9A56D;
+                box-shadow: 0 4px 12px rgba(201, 165, 109, 0.4);
+            }
+            
+            .timeline-step.completed .timeline-circle {
+                background: #C9A56D;
+                color: white;
+            }
+            
+            .timeline-step.completed .timeline-circle i {
+                font-size: 1.2rem;
+            }
+            
+            .timeline-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: #999;
+                text-align: center;
+                max-width: 120px;
+                line-height: 1.2;
+            }
+            
+            .timeline-step.active .timeline-label {
+                color: #C9A56D;
+            }
+            
+            .timeline-step.completed .timeline-label {
+                color: #C9A56D;
+            }
+            
+            .content-card {
+                background: white;
+                border-radius: 16px;
+                padding: 40px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                margin-bottom: 30px;
+                transition: opacity 0.3s ease;
+            }
+            
+            .card-header {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+            .card-label {
+                font-size: 0.75rem;
+                color: #365C73;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 12px;
+            }
+            
+            .card-icon {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                background: rgba(201, 165, 109, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 15px;
+            }
+            
+            .card-icon i {
+                font-size: 2rem;
+                color: #C9A56D;
+            }
+            
+            .card-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.6rem;
+                color: #365C73;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+            
+            .card-subtitle {
+                font-size: 0.9rem;
+                color: #666;
+                line-height: 1.5;
+            }
+            
+            .card-section-title {
+                font-size: 0.9rem;
+                color: #365C73;
+                font-weight: 600;
+                margin-bottom: 15px;
+                margin-top: 25px;
+            }
+            
+            .benefits-list {
+                list-style: none;
+                padding: 0;
+            }
+            
+            .benefits-list li {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                margin-bottom: 12px;
+                font-size: 0.85rem;
+                color: #555;
+                line-height: 1.5;
+            }
+            
+            .benefits-list li i {
+                color: #C9A56D;
+                margin-top: 3px;
+                font-size: 0.9rem;
+            }
+            
+            .action-button {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                color: white;
+                padding: 14px 32px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                text-decoration: none;
+                transition: all 0.3s;
+                border: none;
+                cursor: pointer;
+                margin: 20px auto 0;
+                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.3);
+            }
+            
+            .action-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(201, 165, 109, 0.4);
             }
             
             .navigation-buttons {
@@ -2138,54 +2347,46 @@ app.get('/vendas/apresentacao/slide3', (c) => {
                 display: inline-flex;
                 align-items: center;
                 gap: 10px;
-                padding: 14px 32px;
+                padding: 12px 30px;
                 border-radius: 50px;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 font-weight: 500;
                 cursor: pointer;
                 transition: all 0.3s;
                 border: none;
-                text-decoration: none;
             }
             
             .nav-btn-back {
-                background: rgba(255, 255, 255, 0.1);
-                color: white;
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: white;
+                color: #365C73;
+                border: 1px solid #E0E0E0;
             }
             
             .nav-btn-back:hover {
-                background: rgba(255, 255, 255, 0.15);
+                background: #F6F7F8;
                 transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             }
             
             .nav-btn-next {
-                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                background: #365C73;
                 color: white;
-                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.3);
+                border: 1px solid #365C73;
             }
             
             .nav-btn-next:hover {
+                background: #2A4A5E;
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(201, 165, 109, 0.4);
-            }
-            
-            .nav-btn:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-            
-            .nav-btn:disabled:hover {
-                transform: none;
+                box-shadow: 0 4px 12px rgba(54, 92, 115, 0.3);
             }
             
             .exit-button {
                 position: fixed;
                 top: 15px;
                 right: 15px;
-                background: rgba(255, 255, 255, 0.08);
-                color: white;
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: rgba(0, 0, 0, 0.05);
+                color: #365C73;
+                border: 1px solid rgba(0, 0, 0, 0.1);
                 padding: 8px 16px;
                 border-radius: 50px;
                 font-size: 0.75rem;
@@ -2198,29 +2399,35 @@ app.get('/vendas/apresentacao/slide3', (c) => {
             }
             
             .exit-button:hover {
-                background: rgba(255, 255, 255, 0.15);
+                background: rgba(0, 0, 0, 0.1);
             }
             
             /* Responsivo */
             @media (max-width: 1024px) {
                 .slide-content { padding: 15px 30px 90px; }
-                .methodology-image { max-height: 65vh; }
+                .main-title { font-size: 1.8rem; }
+                .content-card { padding: 30px; }
             }
             
             @media (max-width: 768px) {
                 .slide-content { padding: 12px 20px 80px; }
-                .methodology-image { max-height: 60vh; border-radius: 12px; }
-                .phase-indicator { gap: 8px; margin-bottom: 20px; }
-                .phase-dot { width: 10px; height: 10px; }
-                .phase-dot.active { width: 28px; }
-                .nav-btn { padding: 10px 24px; font-size: 0.8rem; }
-                .navigation-buttons { bottom: 20px; gap: 12px; }
+                .main-title { font-size: 1.5rem; }
+                .subtitle { font-size: 0.9rem; }
+                .description { font-size: 0.8rem; }
+                .timeline-container { flex-direction: column; gap: 15px; }
+                .timeline-line { display: none; }
+                .timeline-circle { width: 40px; height: 40px; font-size: 0.9rem; }
+                .timeline-label { font-size: 0.7rem; max-width: 100px; }
+                .content-card { padding: 25px; }
+                .card-title { font-size: 1.3rem; }
+                .nav-btn { padding: 10px 24px; font-size: 0.75rem; }
             }
             
             @media (max-height: 750px) {
                 .slide-content { padding: 10px 30px 80px; }
-                .methodology-image { max-height: 55vh; }
-                .phase-indicator { margin-bottom: 15px; }
+                .main-title { font-size: 1.8rem; margin-bottom: 6px; }
+                .timeline-container { margin-bottom: 20px; }
+                .content-card { padding: 30px; margin-bottom: 20px; }
             }
         </style>
     </head>
@@ -2231,26 +2438,92 @@ app.get('/vendas/apresentacao/slide3', (c) => {
             </button>
             
             <div class="slide-content">
-                <!-- Indicador de Fase -->
-                <div class="phase-indicator">
-                    <div class="phase-dot" id="phase1Dot"></div>
-                    <div class="phase-dot" id="phase2Dot"></div>
-                    <div class="phase-dot" id="phase3Dot"></div>
+                <!-- Badge -->
+                <div style="text-align: center;">
+                    <div class="methodology-badge">
+                        <i class="fas fa-cog"></i>
+                        <span>NOSSA METODOLOGIA</span>
+                    </div>
                 </div>
                 
-                <!-- Container da Imagem -->
-                <div class="methodology-image-container">
-                    <img id="methodologyImage" src="/static/metodologia-fase1.png" alt="Nossa Metodologia" class="methodology-image">
+                <!-- Título -->
+                <h1 class="main-title">Como trabalhamos na STRUCTA</h1>
+                <p class="subtitle">Consultoria de ponta a ponta</p>
+                <p class="description">Acompanhamos toda sua jornada de investimento imobiliário, da análise inicial à rentabilidade mensal.</p>
+                
+                <!-- Progress Indicator -->
+                <div class="progress-indicator">
+                    <div class="progress-dot" id="progressDot"></div>
+                </div>
+                
+                <!-- Timeline -->
+                <div class="timeline-container">
+                    <div class="timeline-line">
+                        <div class="timeline-progress" id="timelineProgress"></div>
+                    </div>
+                    
+                    <div class="timeline-step" id="step1" onclick="goToPhase(1)">
+                        <div class="timeline-circle">
+                            <span class="step-number">1</span>
+                            <i class="fas fa-check" style="display: none;"></i>
+                        </div>
+                        <div class="timeline-label">HOJE</div>
+                    </div>
+                    
+                    <div class="timeline-step" id="step2" onclick="goToPhase(2)">
+                        <div class="timeline-circle">
+                            <span class="step-number">2</span>
+                            <i class="fas fa-check" style="display: none;"></i>
+                        </div>
+                        <div class="timeline-label">COMPRA DO IMÓVEL</div>
+                    </div>
+                    
+                    <div class="timeline-step" id="step3" onclick="goToPhase(3)">
+                        <div class="timeline-circle">
+                            <span class="step-number">3</span>
+                            <i class="fas fa-check" style="display: none;"></i>
+                        </div>
+                        <div class="timeline-label">RENDA VITALÍCIA</div>
+                    </div>
+                </div>
+                
+                <!-- Content Card -->
+                <div class="content-card" id="contentCard">
+                    <div class="card-header">
+                        <div class="card-label" id="cardLabel">HOJE</div>
+                        <div class="card-icon" id="cardIcon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h2 class="card-title" id="cardTitle">Obtenção do crédito</h2>
+                        <p class="card-subtitle" id="cardSubtitle">Auxiliamos você a escolher o melhor caminho para comprar seu imóvel</p>
+                    </div>
+                    
+                    <div>
+                        <p class="card-section-title">O suporte que torna sua jornada mais fácil:</p>
+                        <ul class="benefits-list" id="benefitsList">
+                            <li><i class="fas fa-check-circle"></i> Análise detalhada do seu perfil financeiro</li>
+                            <li><i class="fas fa-check-circle"></i> Seleção estratégica do crédito ideal</li>
+                            <li><i class="fas fa-check-circle"></i> Formalização e segurança na contratação</li>
+                            <li><i class="fas fa-check-circle"></i> Relatório de viabilidade personalizado</li>
+                            <li><i class="fas fa-check-circle"></i> Acompanhamento consultivo em cada passo</li>
+                        </ul>
+                        
+                        <div style="text-align: center;">
+                            <button class="action-button" id="actionButton" onclick="handleNext()">
+                                Avançar para Escolha do Imóvel <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Navegação -->
             <div class="navigation-buttons">
-                <button class="nav-btn nav-btn-back" id="backBtn" onclick="handleBack()">
+                <button class="nav-btn nav-btn-back" onclick="handleBack()">
                     <i class="fas fa-arrow-left"></i> Voltar
                 </button>
-                <button class="nav-btn nav-btn-next" id="nextBtn" onclick="handleNext()">
-                    <span id="nextBtnText">Próxima Fase</span> <i class="fas fa-arrow-right"></i>
+                <button class="nav-btn nav-btn-next" onclick="goToNextSlide()">
+                    Próximo Slide <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
@@ -2259,55 +2532,140 @@ app.get('/vendas/apresentacao/slide3', (c) => {
             let currentPhase = 1;
             const totalPhases = 3;
             
-            const phaseImages = {
-                1: '/static/metodologia-fase1.png',
-                2: '/static/metodologia-fase2.png',
-                3: '/static/metodologia-fase3.png'
+            const phaseData = {
+                1: {
+                    label: 'HOJE',
+                    icon: 'fa-credit-card',
+                    title: 'Obtenção do crédito',
+                    subtitle: 'Auxiliamos você a escolher o melhor caminho para comprar seu imóvel',
+                    benefits: [
+                        'Análise detalhada do seu perfil financeiro',
+                        'Seleção estratégica do crédito ideal',
+                        'Formalização e segurança na contratação',
+                        'Relatório de viabilidade personalizado',
+                        'Acompanhamento consultivo em cada passo'
+                    ],
+                    buttonText: 'Avançar para Escolha do Imóvel'
+                },
+                2: {
+                    label: 'COMPRA DO IMÓVEL',
+                    icon: 'fa-home',
+                    title: 'Escolha do imóvel ideal',
+                    subtitle: 'Selecionamos imóveis com alto potencial de valorização e rentabilidade',
+                    benefits: [
+                        'Liberação do crédito',
+                        'Estudo de rentabilidade',
+                        'Escolha do imóvel',
+                        'Compra do imóvel',
+                        'Decoração e mobília'
+                    ],
+                    buttonText: 'Avançar para Rentabilização'
+                },
+                3: {
+                    label: 'RENDA VITALÍCIA',
+                    icon: 'fa-chart-line',
+                    title: 'Locação com alta rentabilidade',
+                    subtitle: 'Gerenciamos a locação para garantir renda mensal acima da média do mercado',
+                    benefits: [
+                        'Anúncio nas plataformas',
+                        'Gestão do preço dinâmico',
+                        'Check-in e checkout',
+                        'Limpeza e manutenção',
+                        'Gestão completa da locação'
+                    ],
+                    buttonText: 'Entenda nosso Método'
+                }
             };
             
-            function updatePhase() {
-                // Atualiza imagem
-                const img = document.getElementById('methodologyImage');
-                img.style.opacity = '0';
+            function updateContent() {
+                const data = phaseData[currentPhase];
+                const card = document.getElementById('contentCard');
+                
+                card.style.opacity = '0';
                 
                 setTimeout(() => {
-                    img.src = phaseImages[currentPhase];
-                    img.style.opacity = '1';
-                }, 250);
+                    document.getElementById('cardLabel').textContent = data.label;
+                    document.getElementById('cardIcon').innerHTML = \`<i class="fas \${data.icon}"></i>\`;
+                    document.getElementById('cardTitle').textContent = data.title;
+                    document.getElementById('cardSubtitle').textContent = data.subtitle;
+                    document.getElementById('actionButton').innerHTML = \`\${data.buttonText} <i class="fas fa-arrow-right"></i>\`;
+                    
+                    const benefitsList = document.getElementById('benefitsList');
+                    benefitsList.innerHTML = '';
+                    data.benefits.forEach(benefit => {
+                        const li = document.createElement('li');
+                        li.innerHTML = \`<i class="fas fa-check-circle"></i> \${benefit}\`;
+                        benefitsList.appendChild(li);
+                    });
+                    
+                    card.style.opacity = '1';
+                }, 300);
+            }
+            
+            function updateTimeline() {
+                // Atualiza steps
+                for (let i = 1; i <= totalPhases; i++) {
+                    const step = document.getElementById(\`step\${i}\`);
+                    const circle = step.querySelector('.timeline-circle');
+                    const number = circle.querySelector('.step-number');
+                    const check = circle.querySelector('i');
+                    
+                    step.classList.remove('active', 'completed');
+                    
+                    if (i < currentPhase) {
+                        step.classList.add('completed');
+                        number.style.display = 'none';
+                        check.style.display = 'block';
+                    } else if (i === currentPhase) {
+                        step.classList.add('active');
+                        number.style.display = 'block';
+                        check.style.display = 'none';
+                    } else {
+                        number.style.display = 'block';
+                        check.style.display = 'none';
+                    }
+                }
                 
-                // Atualiza indicadores
-                document.getElementById('phase1Dot').classList.toggle('active', currentPhase === 1);
-                document.getElementById('phase2Dot').classList.toggle('active', currentPhase === 2);
-                document.getElementById('phase3Dot').classList.toggle('active', currentPhase === 3);
+                // Atualiza progress line
+                const progress = ((currentPhase - 1) / (totalPhases - 1)) * 100;
+                document.getElementById('timelineProgress').style.width = progress + '%';
                 
-                // Atualiza texto do botão
-                const nextBtnText = document.getElementById('nextBtnText');
-                if (currentPhase === 3) {
-                    nextBtnText.textContent = 'Próximo Slide';
-                } else {
-                    nextBtnText.textContent = 'Próxima Fase';
+                // Atualiza progress dot
+                const dotPosition = ((currentPhase - 1) / (totalPhases - 1)) * 100;
+                document.getElementById('progressDot').style.left = dotPosition + '%';
+            }
+            
+            function goToPhase(phase) {
+                if (phase >= 1 && phase <= totalPhases) {
+                    currentPhase = phase;
+                    updateContent();
+                    updateTimeline();
                 }
             }
             
             function handleNext() {
                 if (currentPhase < totalPhases) {
                     currentPhase++;
-                    updatePhase();
+                    updateContent();
+                    updateTimeline();
                 } else {
-                    // Ir para próximo slide (slide 4)
-                    alert('Próximo slide será implementado! Por enquanto, este é o slide 3.');
-                    // window.location.href = '/vendas/apresentacao/slide4';
+                    goToNextSlide();
                 }
             }
             
             function handleBack() {
                 if (currentPhase > 1) {
                     currentPhase--;
-                    updatePhase();
+                    updateContent();
+                    updateTimeline();
                 } else {
-                    // Voltar para slide 2
                     window.location.href = '/vendas/apresentacao/slide2';
                 }
+            }
+            
+            function goToNextSlide() {
+                alert('Próximo slide será implementado!');
+                // window.location.href = '/vendas/apresentacao/slide4';
             }
             
             // Navegação por teclado
@@ -2326,7 +2684,8 @@ app.get('/vendas/apresentacao/slide3', (c) => {
             });
             
             // Inicializa
-            updatePhase();
+            updateContent();
+            updateTimeline();
         </script>
     </body>
     </html>
@@ -2334,7 +2693,6 @@ app.get('/vendas/apresentacao/slide3', (c) => {
 })
 
 export default app
-
 function getSidebarHTML() {
   return `
     <div class="sidebar" id="sidebar">
