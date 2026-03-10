@@ -2046,430 +2046,649 @@ app.get('/vendas/apresentacao/slide2', (c) => {
 app.get('/vendas/apresentacao/slide3', (c) => {
   return c.html(`
     <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slide 3 - Nossa Metodologia | Structa</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #F6F7F8;
-            overflow: hidden;
-        }
-        
-        .slide-container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            background: #F6F7F8;
-            padding: 40px;
-        }
-        
-        .slide-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-        }
-        
-        /* Badge */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(201, 165, 109, 0.1);
-            color: #C9A56D;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin: 0 auto 20px;
-            border: 1px solid rgba(201, 165, 109, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* Títulos */
-        .main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #365C73;
-            text-align: center;
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: #C9A56D;
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 30px;
-        }
-        
-        /* Timeline horizontal */
-        .timeline-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .timeline-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: white;
-            border: 2px solid #E0E0E0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #999;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .step-number.active {
-            background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
-            border-color: #C9A56D;
-            color: white;
-            box-shadow: 0 4px 15px rgba(201, 165, 109, 0.4);
-            transform: scale(1.1);
-        }
-        
-        .step-label {
-            font-size: 0.85rem;
-            color: #999;
-            font-weight: 500;
-            text-align: center;
-            transition: all 0.3s;
-            max-width: 150px;
-        }
-        
-        .step-label.active {
-            color: #365C73;
-            font-weight: 600;
-        }
-        
-        /* Linha conectora */
-        .timeline-step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 100%;
-            top: 25px;
-            width: 40px;
-            height: 2px;
-            background: #E0E0E0;
-            z-index: 1;
-        }
-        
-        .timeline-step.active:not(:last-child)::after {
-            background: #C9A56D;
-        }
-        
-        /* Card de conteúdo */
-        .content-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        .phase-image {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-        
-        /* Botões de navegação */
-        .navigation-buttons {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 1000;
-        }
-        
-        .nav-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-        }
-        
-        .nav-btn-back {
-            background: white;
-            color: #365C73;
-            border: 1px solid #E0E0E0;
-        }
-        
-        .nav-btn-back:hover {
-            background: #F6F7F8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .nav-btn-next {
-            background: #365C73;
-            color: white;
-            border: 1px solid #365C73;
-        }
-        
-        .nav-btn-next:hover {
-            background: #2A4A5E;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(54, 92, 115, 0.3);
-        }
-        
-        .nav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        /* Botão sair */
-        .exit-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.05);
-            color: #365C73;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .exit-button:hover {
-            background: rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .slide-container { padding: 30px 20px; }
-            .main-title { font-size: 2rem; }
-            .subtitle { font-size: 1rem; }
-            .timeline-container { gap: 30px; }
-            .timeline-step:not(:last-child)::after { width: 30px; }
-            .content-card { padding: 30px; }
-        }
-        
-        @media (max-width: 768px) {
-            .slide-container { padding: 20px 15px; }
-            .main-title { font-size: 1.5rem; }
-            .subtitle { font-size: 0.9rem; }
-            .timeline-container { gap: 20px; }
-            .step-number { width: 40px; height: 40px; font-size: 1rem; }
-            .step-label { font-size: 0.75rem; max-width: 100px; }
-            .timeline-step:not(:last-child)::after { width: 20px; }
-            .content-card { padding: 20px; }
-            .nav-btn { padding: 10px 20px; font-size: 0.85rem; }
-        }
-    </style>
-</head>
-<body>
-    <div class="slide-container">
-        <!-- Botão Sair -->
-        <button class="exit-button" onclick="window.location.href='/vendas'">
-            <i class="fas fa-times"></i>
-            Sair da Apresentação
-        </button>
-        
-        <div class="slide-content">
-            <!-- Badge -->
-            <div class="badge">
-                <i class="fas fa-route"></i>
-                NOSSA METODOLOGIA
-            </div>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slide 3 - Nossa Metodologia | Structa</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: 'Poppins', sans-serif;
+                background: #F6F7F8;
+                overflow: hidden;
+            }
             
-            <!-- Títulos -->
-            <h1 class="main-title">Como trabalhamos na STRUCTA</h1>
-            <p class="subtitle">Consultoria de ponta a ponta</p>
+            .slide-container {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow: hidden;
+                background: #F6F7F8;
+            }
             
-            <!-- Timeline -->
-            <div class="timeline-container">
-                <div class="timeline-step" data-step="1">
-                    <div class="step-number" data-number="1">1</div>
-                    <div class="step-label" data-label="1">HOJE<br>Obtenção do crédito</div>
+            .slide-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 20px 40px 100px;
+                overflow-y: auto;
+                max-width: 1200px;
+                margin: 0 auto;
+                width: 100%;
+            }
+            
+            .methodology-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(201, 165, 109, 0.1);
+                color: #C9A56D;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                font-weight: 500;
+                margin: 0 auto 15px;
+                border: 1px solid rgba(201, 165, 109, 0.3);
+            }
+            
+            .main-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 2.2rem;
+                font-weight: 700;
+                color: #365C73;
+                text-align: center;
+                margin-bottom: 8px;
+                line-height: 1.2;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                color: #C9A56D;
+                text-align: center;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+            
+            .description {
+                font-size: 0.85rem;
+                color: #666;
+                text-align: center;
+                margin-bottom: 20px;
+                line-height: 1.5;
+            }
+            
+            .progress-indicator {
+                width: 100%;
+                height: 1px;
+                background: #E0E0E0;
+                margin: 20px 0;
+                position: relative;
+            }
+            
+            .progress-dot {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 12px;
+                height: 12px;
+                background: #C9A56D;
+                border-radius: 50%;
+                transition: all 0.3s;
+            }
+            
+            .timeline-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 30px;
+                position: relative;
+            }
+            
+            .timeline-line {
+                position: absolute;
+                top: 20px;
+                left: 60px;
+                right: 60px;
+                height: 2px;
+                background: #E0E0E0;
+                z-index: 0;
+            }
+            
+            .timeline-progress {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                background: #C9A56D;
+                transition: width 0.5s ease;
+            }
+            
+            .timeline-step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 1;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+            
+            .timeline-circle {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: #E8E8E8;
+                color: #999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1.1rem;
+                margin-bottom: 8px;
+                transition: all 0.3s;
+                border: 3px solid transparent;
+            }
+            
+            .timeline-step.active .timeline-circle {
+                background: #C9A56D;
+                color: white;
+                border-color: #C9A56D;
+                box-shadow: 0 4px 12px rgba(201, 165, 109, 0.4);
+            }
+            
+            .timeline-step.completed .timeline-circle {
+                background: #C9A56D;
+                color: white;
+            }
+            
+            .timeline-step.completed .timeline-circle i {
+                font-size: 1.2rem;
+            }
+            
+            .timeline-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: #999;
+                text-align: center;
+                max-width: 120px;
+                line-height: 1.2;
+            }
+            
+            .timeline-step.active .timeline-label {
+                color: #C9A56D;
+            }
+            
+            .timeline-step.completed .timeline-label {
+                color: #C9A56D;
+            }
+            
+            .content-card {
+                background: white;
+                border-radius: 16px;
+                padding: 40px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                margin-bottom: 30px;
+                transition: opacity 0.3s ease;
+            }
+            
+            .card-header {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+            .card-label {
+                font-size: 0.75rem;
+                color: #365C73;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 12px;
+            }
+            
+            .card-icon {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                background: rgba(201, 165, 109, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 15px;
+            }
+            
+            .card-icon i {
+                font-size: 2rem;
+                color: #C9A56D;
+            }
+            
+            .card-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.6rem;
+                color: #365C73;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+            
+            .card-subtitle {
+                font-size: 0.9rem;
+                color: #666;
+                line-height: 1.5;
+            }
+            
+            .card-section-title {
+                font-size: 0.9rem;
+                color: #365C73;
+                font-weight: 600;
+                margin-bottom: 15px;
+                margin-top: 25px;
+            }
+            
+            .benefits-list {
+                list-style: none;
+                padding: 0;
+            }
+            
+            .benefits-list li {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                margin-bottom: 12px;
+                font-size: 0.85rem;
+                color: #555;
+                line-height: 1.5;
+            }
+            
+            .benefits-list li i {
+                color: #C9A56D;
+                margin-top: 3px;
+                font-size: 0.9rem;
+            }
+            
+            .action-button {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                color: white;
+                padding: 14px 32px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                text-decoration: none;
+                transition: all 0.3s;
+                border: none;
+                cursor: pointer;
+                margin: 20px auto 0;
+                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.3);
+            }
+            
+            .action-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(201, 165, 109, 0.4);
+            }
+            
+            .navigation-buttons {
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 20px;
+                z-index: 1000;
+            }
+            
+            .nav-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 12px 30px;
+                border-radius: 50px;
+                font-size: 0.85rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s;
+                border: none;
+            }
+            
+            .nav-btn-back {
+                background: white;
+                color: #365C73;
+                border: 1px solid #E0E0E0;
+            }
+            
+            .nav-btn-back:hover {
+                background: #F6F7F8;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-btn-next {
+                background: #365C73;
+                color: white;
+                border: 1px solid #365C73;
+            }
+            
+            .nav-btn-next:hover {
+                background: #2A4A5E;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(54, 92, 115, 0.3);
+            }
+            
+            .exit-button {
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                background: rgba(0, 0, 0, 0.05);
+                color: #365C73;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                padding: 8px 16px;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                z-index: 1001;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            
+            .exit-button:hover {
+                background: rgba(0, 0, 0, 0.1);
+            }
+            
+            /* Responsivo */
+            @media (max-width: 1024px) {
+                .slide-content { padding: 15px 30px 90px; }
+                .main-title { font-size: 1.8rem; }
+                .content-card { padding: 30px; }
+            }
+            
+            @media (max-width: 768px) {
+                .slide-content { padding: 12px 20px 80px; }
+                .main-title { font-size: 1.5rem; }
+                .subtitle { font-size: 0.9rem; }
+                .description { font-size: 0.8rem; }
+                .timeline-container { flex-direction: column; gap: 15px; }
+                .timeline-line { display: none; }
+                .timeline-circle { width: 40px; height: 40px; font-size: 0.9rem; }
+                .timeline-label { font-size: 0.7rem; max-width: 100px; }
+                .content-card { padding: 25px; }
+                .card-title { font-size: 1.3rem; }
+                .nav-btn { padding: 10px 24px; font-size: 0.75rem; }
+            }
+            
+            @media (max-height: 750px) {
+                .slide-content { padding: 10px 30px 80px; }
+                .main-title { font-size: 1.8rem; margin-bottom: 6px; }
+                .timeline-container { margin-bottom: 20px; }
+                .content-card { padding: 30px; margin-bottom: 20px; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <button class="exit-button" onclick="window.location.href='/vendas'">
+                <i class="fas fa-times"></i> Sair da Apresentação
+            </button>
+            
+            <div class="slide-content">
+                <!-- Badge -->
+                <div style="text-align: center;">
+                    <div class="methodology-badge">
+                        <i class="fas fa-cog"></i>
+                        <span>NOSSA METODOLOGIA</span>
+                    </div>
                 </div>
                 
-                <div class="timeline-step" data-step="2">
-                    <div class="step-number" data-number="2">2</div>
-                    <div class="step-label" data-label="2">COMPRA DO IMÓVEL<br>Escolha do imóvel ideal</div>
+                <!-- Título -->
+                <h1 class="main-title">Como trabalhamos na STRUCTA</h1>
+                <p class="subtitle">Consultoria de ponta a ponta</p>
+                <p class="description">Acompanhamos toda sua jornada de investimento imobiliário, da análise inicial à rentabilidade mensal.</p>
+                
+                <!-- Progress Indicator -->
+                <div class="progress-indicator">
+                    <div class="progress-dot" id="progressDot"></div>
                 </div>
                 
-                <div class="timeline-step" data-step="3">
-                    <div class="step-number" data-number="3">3</div>
-                    <div class="step-label" data-label="3">RENDA VITALÍCIA<br>Locação com alta rentabilidade</div>
+                <!-- Timeline -->
+                <div class="timeline-container">
+                    <div class="timeline-line">
+                        <div class="timeline-progress" id="timelineProgress"></div>
+                    </div>
+                    
+                    <div class="timeline-step" id="step1" onclick="goToPhase(1)">
+                        <div class="timeline-circle">
+                            <span class="step-number">1</span>
+                            <i class="fas fa-check" style="display: none;"></i>
+                        </div>
+                        <div class="timeline-label">HOJE</div>
+                    </div>
+                    
+                    <div class="timeline-step" id="step2" onclick="goToPhase(2)">
+                        <div class="timeline-circle">
+                            <span class="step-number">2</span>
+                            <i class="fas fa-check" style="display: none;"></i>
+                        </div>
+                        <div class="timeline-label">COMPRA DO IMÓVEL</div>
+                    </div>
+                    
+                    <div class="timeline-step" id="step3" onclick="goToPhase(3)">
+                        <div class="timeline-circle">
+                            <span class="step-number">3</span>
+                            <i class="fas fa-check" style="display: none;"></i>
+                        </div>
+                        <div class="timeline-label">RENDA VITALÍCIA</div>
+                    </div>
+                </div>
+                
+                <!-- Content Card -->
+                <div class="content-card" id="contentCard">
+                    <div class="card-header">
+                        <div class="card-label" id="cardLabel">HOJE</div>
+                        <div class="card-icon" id="cardIcon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h2 class="card-title" id="cardTitle">Obtenção do crédito</h2>
+                        <p class="card-subtitle" id="cardSubtitle">Auxiliamos você a escolher o melhor caminho para comprar seu imóvel</p>
+                    </div>
+                    
+                    <div>
+                        <p class="card-section-title">O suporte que torna sua jornada mais fácil:</p>
+                        <ul class="benefits-list" id="benefitsList">
+                            <li><i class="fas fa-check-circle"></i> Análise detalhada do seu perfil financeiro</li>
+                            <li><i class="fas fa-check-circle"></i> Seleção estratégica do crédito ideal</li>
+                            <li><i class="fas fa-check-circle"></i> Formalização e segurança na contratação</li>
+                            <li><i class="fas fa-check-circle"></i> Relatório de viabilidade personalizado</li>
+                            <li><i class="fas fa-check-circle"></i> Acompanhamento consultivo em cada passo</li>
+                        </ul>
+                        
+                        <div style="text-align: center;">
+                            <button class="action-button" id="actionButton" onclick="handleNext()">
+                                Avançar para Escolha do Imóvel <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Card de Conteúdo -->
-            <div class="content-card">
-                <img id="phase-image" class="phase-image" src="/static/metodologia-fase1.png" alt="Fase 1">
+            <!-- Navegação -->
+            <div class="navigation-buttons">
+                <button class="nav-btn nav-btn-back" onclick="handleBack()">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
+                <button class="nav-btn nav-btn-next" onclick="goToNextSlide()">
+                    Próximo Slide <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
         
-        <!-- Botões de Navegação -->
-        <div class="navigation-buttons">
-            <button id="btn-back" class="nav-btn nav-btn-back">
-                <i class="fas fa-arrow-left"></i>
-                Voltar
-            </button>
-            <button id="btn-next" class="nav-btn nav-btn-next">
-                Próxima Etapa
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-    </div>
-    
-    <script>
-        let currentStep = 1;
-        const totalSteps = 3;
-        
-        const phaseImages = {
-            1: '/static/metodologia-fase1.png',
-            2: '/static/metodologia-fase2.png',
-            3: '/static/metodologia-fase3.png'
-        };
-        
-        // Atualiza UI
-        function updateUI() {
-            // Atualiza imagem
-            document.getElementById('phase-image').src = phaseImages[currentStep];
+        <script>
+            let currentPhase = 1;
+            const totalPhases = 3;
             
-            // Atualiza timeline
-            document.querySelectorAll('.timeline-step').forEach((step, index) => {
-                const stepNumber = index + 1;
-                const numberEl = step.querySelector('.step-number');
-                const labelEl = step.querySelector('.step-label');
+            const phaseData = {
+                1: {
+                    label: 'HOJE',
+                    icon: 'fa-credit-card',
+                    title: 'Obtenção do crédito',
+                    subtitle: 'Auxiliamos você a escolher o melhor caminho para comprar seu imóvel',
+                    benefits: [
+                        'Análise detalhada do seu perfil financeiro',
+                        'Seleção estratégica do crédito ideal',
+                        'Formalização e segurança na contratação',
+                        'Relatório de viabilidade personalizado',
+                        'Acompanhamento consultivo em cada passo'
+                    ],
+                    buttonText: 'Avançar para Escolha do Imóvel'
+                },
+                2: {
+                    label: 'COMPRA DO IMÓVEL',
+                    icon: 'fa-home',
+                    title: 'Escolha do imóvel ideal',
+                    subtitle: 'Selecionamos imóveis com alto potencial de valorização e rentabilidade',
+                    benefits: [
+                        'Liberação do crédito',
+                        'Estudo de rentabilidade',
+                        'Escolha do imóvel',
+                        'Compra do imóvel',
+                        'Decoração e mobília'
+                    ],
+                    buttonText: 'Avançar para Rentabilização'
+                },
+                3: {
+                    label: 'RENDA VITALÍCIA',
+                    icon: 'fa-chart-line',
+                    title: 'Locação com alta rentabilidade',
+                    subtitle: 'Gerenciamos a locação para garantir renda mensal acima da média do mercado',
+                    benefits: [
+                        'Anúncio nas plataformas',
+                        'Gestão do preço dinâmico',
+                        'Check-in e checkout',
+                        'Limpeza e manutenção',
+                        'Gestão completa da locação'
+                    ],
+                    buttonText: 'Entenda nosso Método'
+                }
+            };
+            
+            function updateContent() {
+                const data = phaseData[currentPhase];
+                const card = document.getElementById('contentCard');
                 
-                if (stepNumber === currentStep) {
-                    step.classList.add('active');
-                    numberEl.classList.add('active');
-                    labelEl.classList.add('active');
+                card.style.opacity = '0';
+                
+                setTimeout(() => {
+                    document.getElementById('cardLabel').textContent = data.label;
+                    document.getElementById('cardIcon').innerHTML = \`<i class="fas \${data.icon}"></i>\`;
+                    document.getElementById('cardTitle').textContent = data.title;
+                    document.getElementById('cardSubtitle').textContent = data.subtitle;
+                    document.getElementById('actionButton').innerHTML = \`\${data.buttonText} <i class="fas fa-arrow-right"></i>\`;
+                    
+                    const benefitsList = document.getElementById('benefitsList');
+                    benefitsList.innerHTML = '';
+                    data.benefits.forEach(benefit => {
+                        const li = document.createElement('li');
+                        li.innerHTML = \`<i class="fas fa-check-circle"></i> \${benefit}\`;
+                        benefitsList.appendChild(li);
+                    });
+                    
+                    card.style.opacity = '1';
+                }, 300);
+            }
+            
+            function updateTimeline() {
+                // Atualiza steps
+                for (let i = 1; i <= totalPhases; i++) {
+                    const step = document.getElementById(\`step\${i}\`);
+                    const circle = step.querySelector('.timeline-circle');
+                    const number = circle.querySelector('.step-number');
+                    const check = circle.querySelector('i');
+                    
+                    step.classList.remove('active', 'completed');
+                    
+                    if (i < currentPhase) {
+                        step.classList.add('completed');
+                        number.style.display = 'none';
+                        check.style.display = 'block';
+                    } else if (i === currentPhase) {
+                        step.classList.add('active');
+                        number.style.display = 'block';
+                        check.style.display = 'none';
+                    } else {
+                        number.style.display = 'block';
+                        check.style.display = 'none';
+                    }
+                }
+                
+                // Atualiza progress line
+                const progress = ((currentPhase - 1) / (totalPhases - 1)) * 100;
+                document.getElementById('timelineProgress').style.width = progress + '%';
+                
+                // Atualiza progress dot
+                const dotPosition = ((currentPhase - 1) / (totalPhases - 1)) * 100;
+                document.getElementById('progressDot').style.left = dotPosition + '%';
+            }
+            
+            function goToPhase(phase) {
+                if (phase >= 1 && phase <= totalPhases) {
+                    currentPhase = phase;
+                    updateContent();
+                    updateTimeline();
+                }
+            }
+            
+            function handleNext() {
+                if (currentPhase < totalPhases) {
+                    currentPhase++;
+                    updateContent();
+                    updateTimeline();
                 } else {
-                    step.classList.remove('active');
-                    numberEl.classList.remove('active');
-                    labelEl.classList.remove('active');
+                    goToNextSlide();
+                }
+            }
+            
+            function handleBack() {
+                if (currentPhase > 1) {
+                    currentPhase--;
+                    updateContent();
+                    updateTimeline();
+                } else {
+                    window.location.href = '/vendas/apresentacao/slide2';
+                }
+            }
+            
+            function goToNextSlide() {
+                alert('Próximo slide será implementado!');
+                // window.location.href = '/vendas/apresentacao/slide4';
+            }
+            
+            // Navegação por teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    handleNext();
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    handleBack();
+                }
+                if (e.key === 'Escape') {
+                    window.location.href = '/vendas';
                 }
             });
             
-            // Atualiza botões
-            const btnBack = document.getElementById('btn-back');
-            const btnNext = document.getElementById('btn-next');
-            
-            if (currentStep === 1) {
-                btnBack.textContent = 'Voltar ao Slide Anterior';
-                btnBack.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar ao Slide Anterior';
-            } else {
-                btnBack.innerHTML = '<i class="fas fa-arrow-left"></i> Etapa Anterior';
-            }
-            
-            if (currentStep === totalSteps) {
-                btnNext.innerHTML = 'Próximo Slide <i class="fas fa-arrow-right"></i>';
-            } else {
-                btnNext.innerHTML = 'Próxima Etapa <i class="fas fa-arrow-right"></i>';
-            }
-        }
-        
-        // Click nos steps da timeline
-        document.querySelectorAll('.timeline-step').forEach(step => {
-            step.addEventListener('click', function() {
-                currentStep = parseInt(this.dataset.step);
-                updateUI();
-            });
-        });
-        
-        // Botão Voltar
-        document.getElementById('btn-back').addEventListener('click', function() {
-            if (currentStep === 1) {
-                // Volta para slide anterior
-                window.location.href = '/vendas/apresentacao/slide2';
-            } else {
-                currentStep--;
-                updateUI();
-            }
-        });
-        
-        // Botão Próximo
-        document.getElementById('btn-next').addEventListener('click', function() {
-            if (currentStep === totalSteps) {
-                // Vai para próximo slide
-                alert('Próximo slide será implementado!');
-            } else {
-                currentStep++;
-                updateUI();
-            }
-        });
-        
-        // Atalhos de teclado
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                document.getElementById('btn-next').click();
-            }
-            if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                document.getElementById('btn-back').click();
-            }
-            if (e.key === 'Escape') {
-                window.location.href = '/vendas';
-            }
-        });
-        
-        // Inicializa
-        updateUI();
-    </script>
-</body>
-</html>
-
+            // Inicializa
+            updateContent();
+            updateTimeline();
+        </script>
+    </body>
+    </html>
   `)
 })
 
