@@ -2022,8 +2022,7 @@ app.get('/vendas/apresentacao/slide2', (c) => {
         
         <script>
             function nextSlide() {
-                alert('Próximo slide será implementado! Por enquanto, este é o slide 2.');
-                // window.location.href = '/vendas/apresentacao/slide3';
+                window.location.href = '/vendas/apresentacao/slide3';
             }
             
             function previousSlide() {
@@ -2036,6 +2035,298 @@ app.get('/vendas/apresentacao/slide2', (c) => {
                 if (e.key === 'ArrowLeft') previousSlide();
                 if (e.key === 'Escape') window.location.href = '/vendas';
             });
+        </script>
+    </body>
+    </html>
+  `)
+})
+
+// ========== APRESENTAÇÃO INTERATIVA (SLIDE 3 - METODOLOGIA) ==========
+
+app.get('/vendas/apresentacao/slide3', (c) => {
+  return c.html(`
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slide 3 - Nossa Metodologia | Structa</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                font-family: 'Poppins', sans-serif;
+                background: #1F3B4D;
+                overflow: hidden;
+            }
+            
+            .slide-container {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .slide-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20px 40px 100px;
+                overflow: hidden;
+                max-width: 1200px;
+                margin: 0 auto;
+                width: 100%;
+            }
+            
+            .methodology-image-container {
+                width: 100%;
+                max-width: 1000px;
+                height: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: opacity 0.5s ease;
+            }
+            
+            .methodology-image {
+                max-width: 100%;
+                max-height: 70vh;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+                border-radius: 16px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            }
+            
+            .phase-indicator {
+                display: flex;
+                gap: 12px;
+                margin-bottom: 30px;
+            }
+            
+            .phase-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: rgba(201, 165, 109, 0.3);
+                transition: all 0.3s;
+            }
+            
+            .phase-dot.active {
+                background: #C9A56D;
+                width: 36px;
+                border-radius: 6px;
+            }
+            
+            .navigation-buttons {
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 20px;
+                z-index: 1000;
+            }
+            
+            .nav-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 14px 32px;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s;
+                border: none;
+                text-decoration: none;
+            }
+            
+            .nav-btn-back {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .nav-btn-back:hover {
+                background: rgba(255, 255, 255, 0.15);
+                transform: translateY(-2px);
+            }
+            
+            .nav-btn-next {
+                background: linear-gradient(135deg, #C9A56D 0%, #B89558 100%);
+                color: white;
+                box-shadow: 0 4px 15px rgba(201, 165, 109, 0.3);
+            }
+            
+            .nav-btn-next:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(201, 165, 109, 0.4);
+            }
+            
+            .nav-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+            
+            .nav-btn:disabled:hover {
+                transform: none;
+            }
+            
+            .exit-button {
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                background: rgba(255, 255, 255, 0.08);
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 8px 16px;
+                border-radius: 50px;
+                font-size: 0.75rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                z-index: 1001;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            
+            .exit-button:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+            
+            /* Responsivo */
+            @media (max-width: 1024px) {
+                .slide-content { padding: 15px 30px 90px; }
+                .methodology-image { max-height: 65vh; }
+            }
+            
+            @media (max-width: 768px) {
+                .slide-content { padding: 12px 20px 80px; }
+                .methodology-image { max-height: 60vh; border-radius: 12px; }
+                .phase-indicator { gap: 8px; margin-bottom: 20px; }
+                .phase-dot { width: 10px; height: 10px; }
+                .phase-dot.active { width: 28px; }
+                .nav-btn { padding: 10px 24px; font-size: 0.8rem; }
+                .navigation-buttons { bottom: 20px; gap: 12px; }
+            }
+            
+            @media (max-height: 750px) {
+                .slide-content { padding: 10px 30px 80px; }
+                .methodology-image { max-height: 55vh; }
+                .phase-indicator { margin-bottom: 15px; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slide-container">
+            <button class="exit-button" onclick="window.location.href='/vendas'">
+                <i class="fas fa-times"></i> Sair da Apresentação
+            </button>
+            
+            <div class="slide-content">
+                <!-- Indicador de Fase -->
+                <div class="phase-indicator">
+                    <div class="phase-dot" id="phase1Dot"></div>
+                    <div class="phase-dot" id="phase2Dot"></div>
+                    <div class="phase-dot" id="phase3Dot"></div>
+                </div>
+                
+                <!-- Container da Imagem -->
+                <div class="methodology-image-container">
+                    <img id="methodologyImage" src="/static/metodologia-fase1.png" alt="Nossa Metodologia" class="methodology-image">
+                </div>
+            </div>
+            
+            <!-- Navegação -->
+            <div class="navigation-buttons">
+                <button class="nav-btn nav-btn-back" id="backBtn" onclick="handleBack()">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </button>
+                <button class="nav-btn nav-btn-next" id="nextBtn" onclick="handleNext()">
+                    <span id="nextBtnText">Próxima Fase</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <script>
+            let currentPhase = 1;
+            const totalPhases = 3;
+            
+            const phaseImages = {
+                1: '/static/metodologia-fase1.png',
+                2: '/static/metodologia-fase2.png',
+                3: '/static/metodologia-fase3.png'
+            };
+            
+            function updatePhase() {
+                // Atualiza imagem
+                const img = document.getElementById('methodologyImage');
+                img.style.opacity = '0';
+                
+                setTimeout(() => {
+                    img.src = phaseImages[currentPhase];
+                    img.style.opacity = '1';
+                }, 250);
+                
+                // Atualiza indicadores
+                document.getElementById('phase1Dot').classList.toggle('active', currentPhase === 1);
+                document.getElementById('phase2Dot').classList.toggle('active', currentPhase === 2);
+                document.getElementById('phase3Dot').classList.toggle('active', currentPhase === 3);
+                
+                // Atualiza texto do botão
+                const nextBtnText = document.getElementById('nextBtnText');
+                if (currentPhase === 3) {
+                    nextBtnText.textContent = 'Próximo Slide';
+                } else {
+                    nextBtnText.textContent = 'Próxima Fase';
+                }
+            }
+            
+            function handleNext() {
+                if (currentPhase < totalPhases) {
+                    currentPhase++;
+                    updatePhase();
+                } else {
+                    // Ir para próximo slide (slide 4)
+                    alert('Próximo slide será implementado! Por enquanto, este é o slide 3.');
+                    // window.location.href = '/vendas/apresentacao/slide4';
+                }
+            }
+            
+            function handleBack() {
+                if (currentPhase > 1) {
+                    currentPhase--;
+                    updatePhase();
+                } else {
+                    // Voltar para slide 2
+                    window.location.href = '/vendas/apresentacao/slide2';
+                }
+            }
+            
+            // Navegação por teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    handleNext();
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    handleBack();
+                }
+                if (e.key === 'Escape') {
+                    window.location.href = '/vendas';
+                }
+            });
+            
+            // Inicializa
+            updatePhase();
         </script>
     </body>
     </html>
